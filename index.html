@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <meta name="description" content="Personal portfolio website." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-text editable" data-key="logoText" contenteditable="false">YN</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="edit-mode-btn" id="editModeBtn">Edit Mode</button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-avatar-wrapper">
+        <div class="avatar-ring"></div>
+        <div class="hero-avatar" id="avatarContainer">
+          <span class="avatar-emoji" id="avatarEmoji">person</span>
+          <img id="avatarImg" src="" alt="Profile photo" style="display:none" />
+          <label class="avatar-upload-label edit-only" for="avatarUpload" title="Upload photo">cam</label>
+          <input type="file" id="avatarUpload" accept="image/*" style="display:none" />
+        </div>
+      </div>
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I am</p>
+        <h1 class="hero-name editable" data-key="heroName" contenteditable="false">Mingstar</h1>
+        <p class="hero-role editable" data-key="heroRole" contenteditable="false">Designer engineer(UI/UX + full stack)</p>
+        <p class="hero-tagline editable" data-key="heroTagline" contenteditable="false">Full-Stack Web Developer building fast, intuitive software with a strong eye for product design</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator"><div class="scroll-arrow"></div></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">About <span class="highlight">Me</span></h2>
+      <div class="about-grid">
+        <div class="glass-card about-card">
+          <h3>Who I Am</h3>
+          <p class="editable" data-key="aboutBio" contenteditable="false">I build full-stack web applications where performance and usability matter equally. Whether it's architecting clean database models, securing API integrations, or refining micro-interactions to make complex workflows feel effortless, I help businesses launch reliable products that their users actually enjoy using.</p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-number editable" data-key="statYears" contenteditable="false">2+</span>
+              <span class="stat-label">Years Exp.</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number editable" data-key="statProjects" contenteditable="false">30+</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number editable" data-key="statClients" contenteditable="false">10+</span>
+              <span class="stat-label">Clients</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass-card about-card">
+          <h3>Personal Info</h3>
+          <ul class="info-list">
+            <li class="info-item"><span class="info-icon">loc</span><span class="info-label">Location:</span><span class="info-value editable" data-key="infoLocation" contenteditable="false">phom penh, cabodia</span></li>
+            <li class="info-item"><span class="info-icon">edu</span><span class="info-label">Education:</span><span class="info-value editable" data-key="infoEducation" contenteditable="false">specialized training</span></li>
+            <li class="info-item"><span class="info-icon">job</span><span class="info-label">Role:</span><span class="info-value editable" data-key="infoRole" contenteditable="false">Full-Stack Developer</span></li>
+            <li class="info-item"><span class="info-icon">lang</span><span class="info-label">Languages:</span><span class="info-value editable" data-key="infoLanguages" contenteditable="false">English, khmer, chinese</span></li>
+            <li class="info-item"><span class="info-icon">avail</span><span class="info-label">Available:</span><span class="info-value editable" data-key="infoAvail" contenteditable="false">Open to opportunities</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section section-dark" id="skills">
+    <div class="container">
+      <h2 class="section-title">My <span class="highlight">Skills</span></h2>
+      <div class="skills-grid" id="skillsGrid"></div>
+      <div class="edit-only" style="text-align:center;margin-top:2rem">
+        <button class="btn btn-outline" id="addSkillBtn">+ Add Skill</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h2 class="section-title">My <span class="highlight">Projects</span></h2>
+      <p class="section-subtitle editable" data-key="projectsSubtitle" contenteditable="false">A collection of things I have built. Click on a card to learn more.</p>
+      <div class="projects-grid" id="projectsGrid"></div>
+      <div class="edit-only" style="text-align:center;margin-top:2rem">
+        <button class="btn btn-primary" id="addProjectBtn">+ Add Project</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-dark" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+      <p class="contact-intro editable" data-key="contactIntro" contenteditable="false">I am currently open to new opportunities. Whether you have a question, a project idea, or just want to say hi - my inbox is always open!</p>
+      <div class="contact-grid">
+        <div class="glass-card contact-info">
+          <h3>Contact Details</h3>
+          <ul class="contact-list">
+            <li class="contact-item"><span class="contact-icon">email</span><span class="editable" data-key="contactEmail" contenteditable="false">Lindara909@gmail.com</span></li>
+            <li class="contact-item"><span class="contact-icon">phone</span><span class="editable" data-key="contactPhone" contenteditable="false">+855 66995754</span></li>
+            <li class="contact-item"><span class="contact-icon">github</span><span class="editable" data-key="contactGithub" contenteditable="false">github.com/yourusername</span></li>
+            <li class="contact-item"><span class="contact-icon">linkedin</span><span class="editable" data-key="contactLinkedin" contenteditable="false">linkedin.com/in/yourprofile</span></li>
+          </ul>
+        </div>
+        <div class="glass-card contact-form-wrap">
+          <h3>Send a Message</h3>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group"><input type="text" id="msgName" placeholder="Your Name" required /></div>
+            <div class="form-group"><input type="email" id="msgEmail" placeholder="Your Email" required /></div>
+            <div class="form-group"><textarea id="msgBody" rows="4" placeholder="Your Message" required></textarea></div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+          <div class="form-success" id="formSuccess" style="display:none">Thanks! Connect a backend or EmailJS to send real messages.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Made with love by <span class="editable footer-name" data-key="footerName" contenteditable="false">Your Name</span> &nbsp;&middot;&nbsp; <span id="footerYear"></span></p>
+  </footer>
+
+  <!-- VIEW PROJECT MODAL -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-box glass-card">
+      <button class="modal-close" id="modalClose">X</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- EDIT PROJECT MODAL -->
+  <div class="modal-overlay" id="editProjectModal">
+    <div class="modal-box glass-card">
+      <button class="modal-close" id="editModalClose">X</button>
+      <h3 id="editProjectTitle">Add Project</h3>
+      <form id="editProjectForm" class="edit-project-form">
+        <input type="hidden" id="editProjectIndex" value="-1" />
+        <div class="form-group"><label>Project Title</label><input type="text" id="epTitle" placeholder="My Awesome App" required /></div>
+        <div class="form-group"><label>Category / Tag</label><input type="text" id="epTag" placeholder="Web, Design, Mobile" /></div>
+        <div class="form-group"><label>Short Description</label><textarea id="epDesc" rows="3" placeholder="Brief overview..."></textarea></div>
+        <div class="form-group"><label>Full Description</label><textarea id="epFullDesc" rows="5" placeholder="Detailed info, tech stack..."></textarea></div>
+        <div class="form-group"><label>Live URL (optional)</label><input type="url" id="epUrl" placeholder="https://yourproject.com" /></div>
+        <div class="form-group"><label>GitHub URL (optional)</label><input type="url" id="epGithub" placeholder="https://github.com/you/project" /></div>
+        <div class="form-group"><label>Emoji Icon</label><input type="text" id="epEmoji" placeholder="rocket" maxlength="4" /></div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save Project</button>
+          <button type="button" class="btn btn-outline" id="cancelEditProject">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD SKILL MODAL -->
+  <div class="modal-overlay" id="addSkillModal">
+    <div class="modal-box modal-box-sm glass-card">
+      <button class="modal-close" id="addSkillClose">X</button>
+      <h3>Add Skill</h3>
+      <form id="addSkillForm">
+        <div class="form-group"><label>Skill Name</label><input type="text" id="skillName" placeholder="JavaScript" required /></div>
+        <div class="form-group"><label>Proficiency % (0-100)</label><input type="number" id="skillLevel" min="0" max="100" placeholder="85" required /></div>
+        <div class="form-group"><label>Emoji / Icon</label><input type="text" id="skillEmoji" placeholder="star" maxlength="4" /></div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Add Skill</button>
+          <button type="button" class="btn btn-outline" id="cancelAddSkill">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
