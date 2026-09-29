@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CryptoSphere — Market Intelligence & Portfolio Studio</title>
+  <meta name="description" content="Institutional-grade cryptocurrency analytics, interactive financial charts, live ticker feeds, and portfolio P&L tracker." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="crypto-theme">
+  <!-- TICKER MARQUEE -->
+  <div class="ticker-marquee-bar">
+    <div class="marquee-content" id="marqueeStream">
+      <!-- Generated via JS: BTC $64,280 (+2.4%), ETH $3,450 (+1.8%)... -->
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="crypto-header">
+    <div class="header-left">
+      <a href="../../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portfolio</span>
+      </a>
+      <div class="brand">
+        <div class="crypto-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><line x1="12" y1="6" x2="12" y2="8"></line><line x1="12" y1="16" x2="12" y2="18"></line></svg>
+        </div>
+        <span class="brand-name">CryptoSphere</span>
+        <span class="brand-tag">Terminal v3.1</span>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cryptoSearch" placeholder="Search tokens (e.g. BTC, Solana, Layer 2)..." />
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="global-cap-pill">
+        <span class="cap-label">Global 24h Vol:</span>
+        <span class="cap-val">$92.4B</span>
+      </div>
+      <button class="btn btn-gold btn-sm" id="btnOpenAddTxModal">+ Add Asset</button>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="crypto-main">
+    <!-- TOP ROW: HERO CHART & PORTFOLIO SNAPSHOT -->
+    <div class="hero-split-grid">
+      <!-- INTERACTIVE PRICE & CANDLESTICK CANVAS -->
+      <div class="crypto-card chart-panel">
+        <div class="chart-top-bar">
+          <div class="selected-token-info">
+            <span class="token-icon-lg" id="activeTokenIcon">₿</span>
+            <div>
+              <div class="token-name-row">
+                <h3 id="activeTokenName">Bitcoin</h3>
+                <span class="token-symbol" id="activeTokenSymbol">BTC/USD</span>
+              </div>
+              <div class="token-price-row">
+                <span class="current-price" id="activeTokenPrice">$64,850.00</span>
+                <span class="price-change-pill badge-green" id="activeTokenChange">+3.42%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-timeframe-controls">
+            <button class="tf-btn active" data-tf="24H">24H</button>
+            <button class="tf-btn" data-tf="7D">7D</button>
+            <button class="tf-btn" data-tf="1M">1M</button>
+            <button class="tf-btn" data-tf="1Y">1Y</button>
+            <button class="indicator-toggle-btn active" id="btnToggleSMA" title="Toggle 20-period Moving Average">SMA(20)</button>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <canvas id="cryptoPriceCanvas" width="800" height="300"></canvas>
+          <div class="chart-crosshair" id="chartCrosshair" style="display:none;"></div>
+          <div class="crosshair-tooltip" id="chartTooltip" style="display:none;"></div>
+        </div>
+
+        <div class="chart-sub-stats">
+          <div class="sub-stat-item"><span class="ss-label">24h High:</span><span class="ss-val" id="val24High">$65,240</span></div>
+          <div class="sub-stat-item"><span class="ss-label">24h Low:</span><span class="ss-val" id="val24Low">$62,910</span></div>
+          <div class="sub-stat-item"><span class="ss-label">24h Volume:</span><span class="ss-val" id="val24Vol">$28.4B</span></div>
+          <div class="sub-stat-item"><span class="ss-label">Circulating Supply:</span><span class="ss-val">19.7M BTC</span></div>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO P&L & ALLOCATION CARD -->
+      <div class="crypto-card portfolio-panel">
+        <div class="panel-header">
+          <h3>Portfolio Valuation</h3>
+          <span class="live-pulse">LIVE</span>
+        </div>
+
+        <div class="portfolio-hero-stat">
+          <div class="total-balance-num" id="portfolioTotal">$38,420.50</div>
+          <div class="pnl-row">
+            <span class="pnl-label">Total All-Time Return:</span>
+            <span class="pnl-val text-green" id="portfolioPnL">+$6,820.00 (+21.6%)</span>
+          </div>
+        </div>
+
+        <!-- DONUT CHART -->
+        <div class="allocation-donut-wrap">
+          <canvas id="allocationCanvas" width="160" height="160"></canvas>
+          <div class="donut-legend" id="donutLegend">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div class="quick-calculator">
+          <div class="calc-label">Quick Currency Converter</div>
+          <div class="calc-row">
+            <input type="number" id="calcAmount" class="calc-input" value="1" min="0" />
+            <select id="calcFrom" class="calc-select">
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+              <option value="SOL">SOL</option>
+            </select>
+            <span class="calc-eq">=</span>
+            <span class="calc-result" id="calcResult">$64,850.00 USD</span>
+            <select id="calcToFiat" class="calc-select">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="KHR">KHR (៛)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW: LIVE COIN MARKET TABLE -->
+    <div class="crypto-card market-table-panel">
+      <div class="table-header-row">
+        <h3>Top Market Capitalization Assets</h3>
+        <span class="table-sub">Streaming real-time bid/ask order updates</span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="market-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Asset</th>
+              <th>Price</th>
+              <th>24h Change</th>
+              <th>24h Volume</th>
+              <th>Market Cap</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="marketTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- ADD ASSET TRANSACTION MODAL -->
+  <div class="modal-overlay" id="addTxModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add Asset Transaction</h3>
+        <button class="modal-close" id="btnCloseModal">&times;</button>
+      </div>
+      <form id="txForm">
+        <div class="form-row">
+          <label class="form-label" for="txTokenSelect">Select Cryptocurrency</label>
+          <select id="txTokenSelect" class="form-input">
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="ETH">Ethereum (ETH)</option>
+            <option value="SOL">Solana (SOL)</option>
+            <option value="ADA">Cardano (ADA)</option>
+            <option value="AVAX">Avalanche (AVAX)</option>
+          </select>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-row">
+            <label class="form-label" for="txQuantity">Quantity Held</label>
+            <input type="number" id="txQuantity" class="form-input" step="any" placeholder="0.5" required />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="txBuyPrice">Avg Buy Price (USD)</label>
+            <input type="number" id="txBuyPrice" class="form-input" step="any" placeholder="58000" required />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="btnCancelModal">Cancel</button>
+          <button type="submit" class="btn btn-gold">Save Holding</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

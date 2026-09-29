@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeCraft Studio — In-Browser Code Sandbox & Component IDE</title>
+  <meta name="description" content="A live developer playground, interactive sandboxed code runner, and virtual JavaScript console." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="ide-theme">
+  <!-- IDE HEADER -->
+  <header class="ide-header">
+    <div class="header-left">
+      <a href="../../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portfolio</span>
+      </a>
+      <div class="brand">
+        <div class="ide-logo">&lt;/&gt;</div>
+        <span class="brand-title">CodeCraft Studio</span>
+        <span class="brand-ver">v2.0 Sandbox</span>
+      </div>
+    </div>
+
+    <!-- TEMPLATES SELECTOR -->
+    <div class="header-center">
+      <div class="template-selector">
+        <span class="tpl-label">Template:</span>
+        <select id="templateSelect" class="tpl-dropdown">
+          <option value="cube">CSS 3D Glowing Cube</option>
+          <option value="particles">Physics Canvas Particle Engine</option>
+          <option value="glasscard">Glassmorphism Card Generator</option>
+          <option value="todo">Reactive Todo List with LocalStorage</option>
+        </select>
+        <button class="btn btn-outline btn-sm" id="btnLoadTemplate">Load</button>
+      </div>
+    </div>
+
+    <!-- ACTIONS & VIEWPORT CONTROLS -->
+    <div class="header-right">
+      <div class="viewport-controls">
+        <button class="vp-btn active" data-width="100%" title="Desktop View (100%)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </button>
+        <button class="vp-btn" data-width="768px" title="Tablet View (768px)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        </button>
+        <button class="vp-btn" data-width="375px" title="Mobile View (375px)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <button class="btn btn-purple btn-sm" id="btnRunCode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>Run</span>
+      </button>
+
+      <button class="btn btn-outline btn-sm" id="btnExportHtml" title="Download standalone HTML file">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Export</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN IDE WORKSPACE (SPLIT SCREEN) -->
+  <main class="ide-workspace">
+    <!-- LEFT: EDITOR PANE -->
+    <section class="editor-pane">
+      <div class="editor-tab-bar">
+        <div class="tabs-group">
+          <button class="editor-tab active" data-lang="html">
+            <span class="tab-dot html-dot"></span>
+            <span>HTML</span>
+          </button>
+          <button class="editor-tab" data-lang="css">
+            <span class="tab-dot css-dot"></span>
+            <span>CSS</span>
+          </button>
+          <button class="editor-tab" data-lang="js">
+            <span class="tab-dot js-dot"></span>
+            <span>JavaScript</span>
+          </button>
+        </div>
+        <div class="editor-tools">
+          <button class="tool-btn" id="btnFormatCode" title="Format Code">Beautify</button>
+          <button class="tool-btn" id="btnClearCode" title="Clear active editor">Clear</button>
+        </div>
+      </div>
+
+      <div class="editor-code-container">
+        <textarea id="codeHtml" class="code-editor" spellcheck="false" placeholder="Write HTML here..."></textarea>
+        <textarea id="codeCss" class="code-editor" spellcheck="false" placeholder="Write CSS here..." style="display:none;"></textarea>
+        <textarea id="codeJs" class="code-editor" spellcheck="false" placeholder="Write JavaScript here..." style="display:none;"></textarea>
+      </div>
+
+      <!-- VIRTUAL CONSOLE -->
+      <div class="console-drawer" id="consoleDrawer">
+        <div class="console-header">
+          <div class="console-title">
+            <span class="con-indicator"></span>
+            <span>Virtual Console (<span id="consoleCount">0</span>)</span>
+          </div>
+          <button class="btn-clear-con" id="btnClearConsole">Clear Console</button>
+        </div>
+        <div class="console-output" id="consoleOutput">
+          <div class="con-log con-info">// Console output initialized. Real-time console.log calls will stream here.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: PREVIEW PANE -->
+    <section class="preview-pane">
+      <div class="preview-header">
+        <div class="preview-address-bar">
+          <span class="lock-icon">🔒</span>
+          <span class="preview-url">sandbox://localhost:3000/preview</span>
+        </div>
+        <div class="preview-status" id="previewStatus">Live Reload Ready</div>
+      </div>
+      <div class="preview-frame-container">
+        <iframe id="previewFrame" sandbox="allow-scripts allow-modals" title="Live Sandboxed Code Preview"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

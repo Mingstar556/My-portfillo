@@ -1,144 +1,350 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <meta name="description" content="Personal portfolio website." />
+  <title>Mingstar — Senior Full-Stack Engineer & Product Designer</title>
+  <meta name="description" content="Portfolio of Mingstar — Full-Stack Web Developer and UI/UX Designer crafting high-performance web applications, cloud tools, and elegant interactive user experiences." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- PARTICLE BACKGROUND CANVAS -->
   <canvas id="particles-canvas"></canvas>
 
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
-    <div class="nav-logo">
-      <span class="logo-text editable" data-key="logoText" contenteditable="false">YN</span>
-    </div>
+    <a href="#hero" class="nav-logo">
+      <span class="logo-mark">&lt;M/&gt;</span>
+      <span class="logo-text">Mingstar</span>
+    </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#hero" class="nav-link active">Home</a></li>
       <li><a href="#about" class="nav-link">About</a></li>
       <li><a href="#skills" class="nav-link">Skills</a></li>
       <li><a href="#projects" class="nav-link">Projects</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
-    <button class="edit-mode-btn" id="editModeBtn">Edit Mode</button>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div class="nav-cta-wrap">
+      <a href="https://github.com/Mingstar556" target="_blank" rel="noopener noreferrer" class="btn btn-nav-github">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <div class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <section class="hero" id="hero">
     <div class="hero-content">
       <div class="hero-avatar-wrapper">
         <div class="avatar-ring"></div>
         <div class="hero-avatar" id="avatarContainer">
-          <span class="avatar-emoji" id="avatarEmoji">person</span>
-          <img id="avatarImg" src="" alt="Profile photo" style="display:none" />
-          <label class="avatar-upload-label edit-only" for="avatarUpload" title="Upload photo">cam</label>
-          <input type="file" id="avatarUpload" accept="image/*" style="display:none" />
+          <img id="avatarImg" src="1790502058379.jpg" alt="Mingstar — Designer Engineer" />
         </div>
       </div>
       <div class="hero-text">
-        <p class="hero-greeting">Hello, I am</p>
-        <h1 class="hero-name editable" data-key="heroName" contenteditable="false">Mingstar</h1>
-        <p class="hero-role editable" data-key="heroRole" contenteditable="false">Designer engineer(UI/UX + full stack)</p>
-        <p class="hero-tagline editable" data-key="heroTagline" contenteditable="false">Full-Stack Web Developer building fast, intuitive software with a strong eye for product design</p>
+        <div class="hero-greeting-badge">
+          <span class="greeting-dot"></span>
+          <span>Available for New Projects</span>
+        </div>
+        <h1 class="hero-name">Mingstar</h1>
+        <p class="hero-role">Senior Full-Stack Engineer &amp; Product Designer (UI/UX)</p>
+        <p class="hero-tagline">
+          Architecting fast, resilient web applications, cloud diagnostic dashboards, and intuitive digital experiences with clean architecture and meticulous attention to product design.
+        </p>
+
+        <!-- TECH PILLS -->
+        <div class="hero-skills-pills">
+          <span class="pill">React</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">JavaScript ES6+</span>
+          <span class="pill">Tailwind CSS</span>
+          <span class="pill">REST &amp; WebSocket</span>
+          <span class="pill">Figma UI/UX</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">Docker</span>
+        </div>
+
         <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-outline">Contact Me</a>
+          <a href="#projects" class="btn btn-primary">
+            <span>Explore Flagship Projects</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <span>Get In Touch</span>
+          </a>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator"><div class="scroll-arrow"></div></div>
+    <div class="scroll-indicator" title="Scroll down">
+      <div class="scroll-arrow"></div>
+    </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ABOUT SECTION -->
   <section class="section" id="about">
     <div class="container">
       <h2 class="section-title">About <span class="highlight">Me</span></h2>
+      <p class="section-subtitle">Engineering high-performance software with equal emphasis on code clarity and human-centered design.</p>
       <div class="about-grid">
         <div class="glass-card about-card">
           <h3>Who I Am</h3>
-          <p class="editable" data-key="aboutBio" contenteditable="false">I build full-stack web applications where performance and usability matter equally. Whether it's architecting clean database models, securing API integrations, or refining micro-interactions to make complex workflows feel effortless, I help businesses launch reliable products that their users actually enjoy using.</p>
+          <p class="about-bio-text">
+            I am a full-stack engineer and UI/UX product designer based in Phnom Penh, Cambodia. I bridge the gap between complex backend architectures and frictionless user interfaces.
+          </p>
+          <p class="about-bio-text" style="margin-top: 0.85rem;">
+            Whether it is designing robust database schemas, engineering real-time WebSocket feeds, tuning browser Core Web Vitals, or crafting responsive design systems in Figma, I build reliable, production-ready software that delivers tangible business impact and delights users.
+          </p>
           <div class="about-stats">
             <div class="stat-item">
-              <span class="stat-number editable" data-key="statYears" contenteditable="false">2+</span>
+              <span class="stat-number">3+</span>
               <span class="stat-label">Years Exp.</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number editable" data-key="statProjects" contenteditable="false">30+</span>
-              <span class="stat-label">Projects</span>
+              <span class="stat-number">25+</span>
+              <span class="stat-label">Projects Built</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number editable" data-key="statClients" contenteditable="false">10+</span>
-              <span class="stat-label">Clients</span>
+              <span class="stat-number">99.9%</span>
+              <span class="stat-label">Reliability</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Clean Code</span>
             </div>
           </div>
         </div>
+
         <div class="glass-card about-card">
-          <h3>Personal Info</h3>
+          <h3>Personal Profile</h3>
           <ul class="info-list">
-            <li class="info-item"><span class="info-icon">loc</span><span class="info-label">Location:</span><span class="info-value editable" data-key="infoLocation" contenteditable="false">phom penh, cabodia</span></li>
-            <li class="info-item"><span class="info-icon">edu</span><span class="info-label">Education:</span><span class="info-value editable" data-key="infoEducation" contenteditable="false">specialized training</span></li>
-            <li class="info-item"><span class="info-icon">job</span><span class="info-label">Role:</span><span class="info-value editable" data-key="infoRole" contenteditable="false">Full-Stack Developer</span></li>
-            <li class="info-item"><span class="info-icon">lang</span><span class="info-label">Languages:</span><span class="info-value editable" data-key="infoLanguages" contenteditable="false">English, khmer, chinese</span></li>
-            <li class="info-item"><span class="info-icon">avail</span><span class="info-label">Available:</span><span class="info-value editable" data-key="infoAvail" contenteditable="false">Open to opportunities</span></li>
+            <li class="info-item">
+              <span class="info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </span>
+              <span class="info-label">Location:</span>
+              <span class="info-value">Phnom Penh, Cambodia</span>
+            </li>
+            <li class="info-item">
+              <span class="info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              </span>
+              <span class="info-label">Education:</span>
+              <span class="info-value">Software Engineering &amp; Interactive UI/UX Design</span>
+            </li>
+            <li class="info-item">
+              <span class="info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </span>
+              <span class="info-label">Primary Role:</span>
+              <span class="info-value">Full-Stack Engineer &amp; UI/UX Designer</span>
+            </li>
+            <li class="info-item">
+              <span class="info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </span>
+              <span class="info-label">Languages:</span>
+              <span class="info-value">English, Khmer, Chinese</span>
+            </li>
+            <li class="info-item">
+              <span class="info-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              </span>
+              <span class="info-label">Status:</span>
+              <span class="info-value status-available">Open to Full-Time &amp; High-Impact Opportunities</span>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- SKILLS SECTION -->
   <section class="section section-dark" id="skills">
     <div class="container">
-      <h2 class="section-title">My <span class="highlight">Skills</span></h2>
-      <div class="skills-grid" id="skillsGrid"></div>
-      <div class="edit-only" style="text-align:center;margin-top:2rem">
-        <button class="btn btn-outline" id="addSkillBtn">+ Add Skill</button>
+      <h2 class="section-title">Core <span class="highlight">Competencies</span></h2>
+      <p class="section-subtitle">A balanced toolkit spanning modern frontend engineering, scalable backend architecture, and design systems.</p>
+      
+      <div class="skills-categories-grid">
+        <!-- CATEGORY 1: FRONTEND & UI/UX -->
+        <div class="glass-card skill-cat-card">
+          <div class="cat-header">
+            <div class="cat-icon-badge">🎨</div>
+            <div>
+              <h3>Frontend &amp; UI/UX Architecture</h3>
+              <p>Responsive, reactive, and accessible web experiences</p>
+            </div>
+          </div>
+          <div class="cat-skills-list">
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">React &amp; Modern Frameworks</span><span class="skill-pct">92%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 92%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">JavaScript (ES6+, Async, DOM)</span><span class="skill-pct">95%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 95%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">HTML5, Modern CSS3 &amp; Tailwind</span><span class="skill-pct">96%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 96%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">UI/UX Prototyping &amp; Figma</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 90%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY 2: BACKEND & APIS -->
+        <div class="glass-card skill-cat-card">
+          <div class="cat-header">
+            <div class="cat-icon-badge">⚡</div>
+            <div>
+              <h3>Backend &amp; Distributed Systems</h3>
+              <p>Scalable microservices, REST APIs, and database design</p>
+            </div>
+          </div>
+          <div class="cat-skills-list">
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">Node.js &amp; Express Engine</span><span class="skill-pct">88%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 88%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">RESTful APIs &amp; WebSockets</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">PostgreSQL &amp; Data Modeling</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 85%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">Redis Caching &amp; Session Management</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 82%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY 3: DEVOPS & PERFORMANCE -->
+        <div class="glass-card skill-cat-card">
+          <div class="cat-header">
+            <div class="cat-icon-badge">🛠️</div>
+            <div>
+              <h3>DevOps, Cloud &amp; Optimization</h3>
+              <p>Version control, containerization, and runtime diagnostics</p>
+            </div>
+          </div>
+          <div class="cat-skills-list">
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">Git &amp; GitHub Version Control</span><span class="skill-pct">94%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 94%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">Docker &amp; Container Packaging</span><span class="skill-pct">80%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 80%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">Web Performance &amp; Core Web Vitals</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-info"><span class="skill-name">HTML5 Canvas Graphics &amp; Math</span><span class="skill-pct">88%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar" style="width: 88%"></div></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- PROJECTS SECTION -->
   <section class="section" id="projects">
     <div class="container">
-      <h2 class="section-title">My <span class="highlight">Projects</span></h2>
-      <p class="section-subtitle editable" data-key="projectsSubtitle" contenteditable="false">A collection of things I have built. Click on a card to learn more.</p>
-      <div class="projects-grid" id="projectsGrid"></div>
-      <div class="edit-only" style="text-align:center;margin-top:2rem">
-        <button class="btn btn-primary" id="addProjectBtn">+ Add Project</button>
+      <h2 class="section-title">Flagship <span class="highlight">Projects</span></h2>
+      <p class="section-subtitle">Production-grade applications engineered from the ground up to prove full-stack competence, real-time data handling, and clean code.</p>
+      
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Rendered dynamically via app.js with live demo links, github links, and case study modals -->
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONTACT SECTION -->
   <section class="section section-dark" id="contact">
     <div class="container">
       <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
-      <p class="contact-intro editable" data-key="contactIntro" contenteditable="false">I am currently open to new opportunities. Whether you have a question, a project idea, or just want to say hi - my inbox is always open!</p>
+      <p class="contact-intro">I am currently open to new opportunities, freelance contracts, and collaborative software projects. Whether you have an inquiry, an idea, or want to discuss full-stack architecture — feel free to connect!</p>
+      
       <div class="contact-grid">
         <div class="glass-card contact-info">
           <h3>Contact Details</h3>
           <ul class="contact-list">
-            <li class="contact-item"><span class="contact-icon">email</span><span class="editable" data-key="contactEmail" contenteditable="false">Lindara909@gmail.com</span></li>
-            <li class="contact-item"><span class="contact-icon">phone</span><span class="editable" data-key="contactPhone" contenteditable="false">+855 66995754</span></li>
-            <li class="contact-item"><span class="contact-icon">github</span><span class="editable" data-key="contactGithub" contenteditable="false">github.com/yourusername</span></li>
-            <li class="contact-item"><span class="contact-icon">linkedin</span><span class="editable" data-key="contactLinkedin" contenteditable="false">linkedin.com/in/yourprofile</span></li>
+            <li class="contact-item">
+              <span class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+              <div>
+                <span class="contact-type">Email</span>
+                <a href="mailto:Lindara909@gmail.com" class="contact-val">Lindara909@gmail.com</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </span>
+              <div>
+                <span class="contact-type">Phone</span>
+                <a href="tel:+85566995754" class="contact-val">+855 66995754</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </span>
+              <div>
+                <span class="contact-type">GitHub Profile</span>
+                <a href="https://github.com/Mingstar556" target="_blank" rel="noopener noreferrer" class="contact-val">github.com/Mingstar556</a>
+              </div>
+            </li>
+            <li class="contact-item">
+              <span class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </span>
+              <div>
+                <span class="contact-type">Location</span>
+                <span class="contact-val">Phnom Penh, Cambodia</span>
+              </div>
+            </li>
           </ul>
         </div>
+
         <div class="glass-card contact-form-wrap">
-          <h3>Send a Message</h3>
+          <h3>Send a Direct Message</h3>
           <form class="contact-form" id="contactForm">
-            <div class="form-group"><input type="text" id="msgName" placeholder="Your Name" required /></div>
-            <div class="form-group"><input type="email" id="msgEmail" placeholder="Your Email" required /></div>
-            <div class="form-group"><textarea id="msgBody" rows="4" placeholder="Your Message" required></textarea></div>
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div class="form-group">
+              <label for="msgName">Your Name</label>
+              <input type="text" id="msgName" placeholder="e.g. Alex Johnson" required />
+            </div>
+            <div class="form-group">
+              <label for="msgEmail">Email Address</label>
+              <input type="email" id="msgEmail" placeholder="alex@company.com" required />
+            </div>
+            <div class="form-group">
+              <label for="msgBody">Project Message</label>
+              <textarea id="msgBody" rows="4" placeholder="Tell me about your product, timeline, or engineering inquiry..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btnSubmitContact">
+              <span>Send Message</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
           </form>
-          <div class="form-success" id="formSuccess" style="display:none">Thanks! Connect a backend or EmailJS to send real messages.</div>
+          <div class="form-success" id="formSuccess" style="display:none;">
+            ✔ Thank you! Your message has been received. I will reply to your email promptly.
+          </div>
         </div>
       </div>
     </div>
@@ -146,53 +352,30 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>Made with love by <span class="editable footer-name" data-key="footerName" contenteditable="false">Your Name</span> &nbsp;&middot;&nbsp; <span id="footerYear"></span></p>
+    <div class="footer-content">
+      <div class="footer-left">
+        <span class="footer-logo">&lt;M/&gt; Mingstar</span>
+        <p class="footer-tagline">Senior Full-Stack Web Developer &amp; Product Designer</p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/Mingstar556" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Crafted with precision &amp; passion by <span class="footer-name">Mingstar</span> &nbsp;&middot;&nbsp; &copy; <span id="footerYear"></span> All Rights Reserved</p>
+    </div>
   </footer>
 
-  <!-- VIEW PROJECT MODAL -->
+  <!-- VIEW PROJECT CASE STUDY MODAL -->
   <div class="modal-overlay" id="projectModal">
     <div class="modal-box glass-card">
-      <button class="modal-close" id="modalClose">X</button>
+      <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
       <div id="modalContent"></div>
-    </div>
-  </div>
-
-  <!-- EDIT PROJECT MODAL -->
-  <div class="modal-overlay" id="editProjectModal">
-    <div class="modal-box glass-card">
-      <button class="modal-close" id="editModalClose">X</button>
-      <h3 id="editProjectTitle">Add Project</h3>
-      <form id="editProjectForm" class="edit-project-form">
-        <input type="hidden" id="editProjectIndex" value="-1" />
-        <div class="form-group"><label>Project Title</label><input type="text" id="epTitle" placeholder="My Awesome App" required /></div>
-        <div class="form-group"><label>Category / Tag</label><input type="text" id="epTag" placeholder="Web, Design, Mobile" /></div>
-        <div class="form-group"><label>Short Description</label><textarea id="epDesc" rows="3" placeholder="Brief overview..."></textarea></div>
-        <div class="form-group"><label>Full Description</label><textarea id="epFullDesc" rows="5" placeholder="Detailed info, tech stack..."></textarea></div>
-        <div class="form-group"><label>Live URL (optional)</label><input type="url" id="epUrl" placeholder="https://yourproject.com" /></div>
-        <div class="form-group"><label>GitHub URL (optional)</label><input type="url" id="epGithub" placeholder="https://github.com/you/project" /></div>
-        <div class="form-group"><label>Emoji Icon</label><input type="text" id="epEmoji" placeholder="rocket" maxlength="4" /></div>
-        <div class="modal-actions">
-          <button type="submit" class="btn btn-primary">Save Project</button>
-          <button type="button" class="btn btn-outline" id="cancelEditProject">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ADD SKILL MODAL -->
-  <div class="modal-overlay" id="addSkillModal">
-    <div class="modal-box modal-box-sm glass-card">
-      <button class="modal-close" id="addSkillClose">X</button>
-      <h3>Add Skill</h3>
-      <form id="addSkillForm">
-        <div class="form-group"><label>Skill Name</label><input type="text" id="skillName" placeholder="JavaScript" required /></div>
-        <div class="form-group"><label>Proficiency % (0-100)</label><input type="number" id="skillLevel" min="0" max="100" placeholder="85" required /></div>
-        <div class="form-group"><label>Emoji / Icon</label><input type="text" id="skillEmoji" placeholder="star" maxlength="4" /></div>
-        <div class="modal-actions">
-          <button type="submit" class="btn btn-primary">Add Skill</button>
-          <button type="button" class="btn btn-outline" id="cancelAddSkill">Cancel</button>
-        </div>
-      </form>
     </div>
   </div>
 

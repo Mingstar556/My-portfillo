@@ -1,94 +1,93 @@
-﻿// =====================================================
-//  PORTFOLIO — APP.JS
+// =====================================================
+//  PORTFOLIO — APP.JS (PRODUCTION ARCHITECTURE)
+//  Engineered by Mingstar
 // =====================================================
 
-// --- DEFAULT DATA ---
-const DEFAULT_SKILLS = [
-  { name: "HTML & CSS", level: 90, icon: "HTML" },
-  { name: "JavaScript", level: 80, icon: "JS" },
-  { name: "UI/UX Design", level: 75, icon: "UX" },
-  { name: "React", level: 70, icon: "RE" },
-  { name: "Python", level: 65, icon: "PY" },
-  { name: "Git & GitHub", level: 85, icon: "GIT" }
-];
-
-const DEFAULT_PROJECTS = [
+// --- FLAGSHIP PRODUCTION PROJECTS DATA ---
+const FLAGSHIP_PROJECTS = [
   {
-    title: "Portfolio Website",
-    tag: "Web",
-    emoji: "web",
-    desc: "A personal portfolio built with HTML, CSS & JS.",
-    fullDesc: "This is the very site you are looking at! Built from scratch with a black, purple and yellow theme. Features include an editable mode, animated particles, and a modular project system.",
-    url: "",
-    github: ""
+    id: "nexusflow",
+    title: "NexusFlow — Enterprise Agile & Kanban Suite",
+    tag: "Full-Stack • Agile Workspace",
+    emoji: "📊",
+    desc: "A production-grade Agile Kanban board featuring HTML5 drag-and-drop, sprint burn-down analytics, subtask checklist tracking, local persistence, and JSON state export/import.",
+    tech: ["JavaScript ES6+", "HTML5 Drag & Drop", "Canvas Analytics", "LocalStorage"],
+    url: "./projects/nexusflow/index.html",
+    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/nexusflow",
+    architecture: "Architected with modular ES6 state management, custom HTML5 event drag handlers, normalized task data stores, and a 2D Canvas rendering engine for velocity burn-down metrics.",
+    features: [
+      "Fluid drag-and-drop across 5 sprint workflow stages with drop indicators",
+      "Sprint velocity & burn-down line and donut charts rendered on HTML5 Canvas",
+      "Dynamic task filtering by Priority (Urgent/High/Med/Low), Assignee, and Category Tag",
+      "Subtask checklist with real-time percentage progress bar calculations",
+      "Standalone, zero-dependency client architecture with JSON backup import/export"
+    ]
   },
   {
-    title: "E-Commerce App",
-    tag: "Full Stack",
-    emoji: "shop",
-    desc: "Online store with cart, checkout, and admin panel.",
-    fullDesc: "A full-stack e-commerce platform with product listings, shopping cart, user authentication, order management, and an admin dashboard. Built with React and Node.js.",
-    url: "",
-    github: ""
+    id: "devpulse",
+    title: "DevPulse — Cloud Telemetry & API Sandbox Studio",
+    tag: "DevOps • Observability",
+    emoji: "⚡",
+    desc: "Real-time cloud infrastructure observability console with live Canvas telemetry gauges, streaming service event logs with level filtering, and an interactive REST API benchmark playground.",
+    tech: ["Canvas 2D HUD", "Real-Time Streams", "REST Client Engine", "Latency Benchmarking"],
+    url: "./projects/devpulse/index.html",
+    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/devpulse",
+    architecture: "Engineered rolling 40-sample circular telemetry buffers for sub-millisecond chart repainting, non-blocking synthetic load injection, and an asynchronous HTTP probe client with statistical p95 latency calculation.",
+    features: [
+      "Real-time CPU, RAM, Network I/O, and RPS sparkline monitors updating at 1-second intervals",
+      "P99 and P50 latency waveform graphs rendered on high-performance Canvas",
+      "Live streaming terminal log with regex search, level filtering (INFO/WARN/ERROR), and pause toggle",
+      "Interactive REST API client with CORS fallback proxy simulation and pretty-printed JSON inspector",
+      "Automated 5x benchmarking probe with variance and p95 latency statistical calculations"
+    ]
   },
   {
-    title: "Mobile Weather App",
-    tag: "Mobile",
-    emoji: "cloud",
-    desc: "Real-time weather app with beautiful UI and animations.",
-    fullDesc: "A cross-platform mobile app that fetches real-time weather data from OpenWeatherMap API. Features animated weather icons, a 7-day forecast, location-based weather, and dark/light mode.",
-    url: "",
-    github: ""
+    id: "cryptosphere",
+    title: "CryptoSphere — Market Intelligence & Portfolio Studio",
+    tag: "FinTech • Real-Time Data",
+    emoji: "💎",
+    desc: "Institutional cryptocurrency trading analytics terminal featuring interactive price candlestick charts, moving average indicators, asset allocation donut charts, and live ticker streams.",
+    tech: ["Interactive Canvas Charts", "SMA(20) Indicator", "Portfolio Engine", "Multi-Currency Converter"],
+    url: "./projects/cryptosphere/index.html",
+    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/cryptosphere",
+    architecture: "Designed with continuous marquee ticker streaming, Canvas 2D area charts with Bézier gradient smoothing, technical SMA indicators, and a multi-currency valuation engine supporting USD, EUR, and KHR.",
+    features: [
+      "Continuous marquee ticker streaming real-time cryptocurrency bid/ask quotes",
+      "Interactive timeframes (24H, 7D, 1M, 1Y) with toggleable 20-period Moving Average (SMA)",
+      "Personal portfolio profit & loss tracker with all-time return calculation and local persistence",
+      "Dynamic asset allocation donut chart rendered natively on HTML5 Canvas",
+      "Instant fiat & crypto currency converter with support for USD, EUR, and KHR"
+    ]
+  },
+  {
+    id: "codecraft",
+    title: "CodeCraft Studio — In-Browser Code Sandbox & IDE",
+    tag: "Developer Tools • Web Sandbox",
+    emoji: "🚀",
+    desc: "In-browser code editor and live compilation sandbox with multi-language tabs (HTML/CSS/JS), virtual JavaScript console output capturing, template showcase, and responsive viewport testing.",
+    tech: ["Sandboxed Iframe", "Virtual Console Listener", "Template Engine", "Responsive Viewports"],
+    url: "./projects/codecraft/index.html",
+    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/codecraft",
+    architecture: "Built around an isolated iframe sandbox with bi-directional postMessage communication to securely trap runtime console methods, auto-compiling user code with debounced execution.",
+    features: [
+      "Multi-tab editing for HTML5, CSS3, and JavaScript ES6+ with Tab indentation support",
+      "Virtual Console intercepting console.log/warn/error and uncaught runtime exceptions",
+      "Preloaded templates: 3D Glowing Cube, Particle Mesh, Glassmorphic Card, and Reactive Todo App",
+      "Responsive device switcher (Desktop 100%, Tablet 768px, Mobile 375px)",
+      "One-click standalone single-file HTML bundle export with integrated scripts and styling"
+    ]
   }
 ];
 
-// --- STATE ---
-let skills = JSON.parse(localStorage.getItem("portfolio_skills") || "null") || [...DEFAULT_SKILLS];
-let projects = JSON.parse(localStorage.getItem("portfolio_projects") || "null") || [...DEFAULT_PROJECTS];
-let editMode = false;
-let editingProjectIndex = -1;
-
-// --- SAVE ---
-function saveData() {
-  localStorage.setItem("portfolio_skills", JSON.stringify(skills));
-  localStorage.setItem("portfolio_projects", JSON.stringify(projects));
-}
-
-// --- EDITABLE TEXT (contenteditable) ---
-function initEditables() {
-  document.querySelectorAll(".editable").forEach(el => {
-    const key = el.dataset.key;
-    const stored = localStorage.getItem("pf_text_" + key);
-    if (stored) el.textContent = stored;
-
-    el.addEventListener("blur", () => {
-      localStorage.setItem("pf_text_" + key, el.textContent.trim());
-    });
-  });
-}
-
-function setEditables(active) {
-  document.querySelectorAll(".editable").forEach(el => {
-    el.contentEditable = active ? "true" : "false";
-  });
-}
-
-// --- EDIT MODE TOGGLE ---
-const editBtn = document.getElementById("editModeBtn");
-editBtn.addEventListener("click", () => {
-  editMode = !editMode;
-  document.body.classList.toggle("edit-active", editMode);
-  editBtn.textContent = editMode ? "Done Editing" : "Edit Mode";
-  editBtn.classList.toggle("active", editMode);
-  setEditables(editMode);
-});
-
-// --- PARTICLE CANVAS ---
-(function () {
+// =====================================================
+//  PARTICLE CANVAS BACKGROUND
+// =====================================================
+(function initParticleCanvas() {
   const canvas = document.getElementById("particles-canvas");
+  if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let W, H, particles = [];
-  const COUNT = 80;
+  const COUNT = 75;
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -99,11 +98,13 @@ editBtn.addEventListener("click", () => {
 
   function createParticle() {
     return {
-      x: rand(0, W), y: rand(0, H),
-      vx: rand(-0.3, 0.3), vy: rand(-0.3, 0.3),
-      r: rand(1, 3.5),
-      alpha: rand(0.15, 0.7),
-      color: Math.random() > 0.6 ? "245,197,24" : "123,47,247"
+      x: rand(0, W || 800),
+      y: rand(0, H || 600),
+      vx: rand(-0.35, 0.35),
+      vy: rand(-0.35, 0.35),
+      r: rand(1.2, 3),
+      alpha: rand(0.15, 0.65),
+      color: Math.random() > 0.65 ? "245, 197, 24" : "123, 47, 247"
     };
   }
 
@@ -123,11 +124,11 @@ editBtn.addEventListener("click", () => {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(" + p.color + "," + p.alpha + ")";
+      ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
       ctx.fill();
     });
 
-    // draw connecting lines
+    // Connecting Lines
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -137,7 +138,7 @@ editBtn.addEventListener("click", () => {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = "rgba(123,47,247," + (0.12 * (1 - dist / 120)) + ")";
+          ctx.strokeStyle = `rgba(123, 47, 247, ${0.14 * (1 - dist / 120)})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
@@ -151,35 +152,158 @@ editBtn.addEventListener("click", () => {
   draw();
 })();
 
-// --- NAVBAR ---
+// =====================================================
+//  NAVBAR & SCROLL SPY
+// =====================================================
 window.addEventListener("scroll", () => {
-  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 60);
+  const navbar = document.getElementById("navbar");
+  if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 50);
   updateActiveNav();
 });
 
 function updateActiveNav() {
   const sections = ["hero", "about", "skills", "projects", "contact"];
-  const scrollY = window.scrollY + 100;
+  const scrollY = window.scrollY + 120;
   sections.forEach(id => {
     const sec = document.getElementById(id);
     if (!sec) return;
-    const top = sec.offsetTop, bottom = top + sec.offsetHeight;
-    const link = document.querySelector(".nav-link[href='#" + id + "']");
+    const top = sec.offsetTop;
+    const bottom = top + sec.offsetHeight;
+    const link = document.querySelector(`.nav-link[href="#${id}"]`);
     if (link) link.classList.toggle("active", scrollY >= top && scrollY < bottom);
   });
 }
 
-// hamburger
+// Mobile Hamburger
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
-hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
-navLinks.querySelectorAll(".nav-link").forEach(link => {
-  link.addEventListener("click", () => navLinks.classList.remove("open"));
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
+  navLinks.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => navLinks.classList.remove("open"));
+  });
+}
+
+// =====================================================
+//  PROJECTS RENDERING & CASE STUDY MODAL
+// =====================================================
+function renderProjects() {
+  const grid = document.getElementById("projectsGrid");
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  FLAGSHIP_PROJECTS.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "project-card";
+    card.style.animationDelay = `${i * 0.1}s`;
+
+    const techPills = p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join("");
+
+    card.innerHTML = `
+      <div class="project-top-row">
+        <div class="project-emoji-box">${p.emoji}</div>
+        <span class="project-tag">${escapeHtml(p.tag)}</span>
+      </div>
+      <h3 class="project-title">${escapeHtml(p.title)}</h3>
+      <p class="project-desc">${escapeHtml(p.desc)}</p>
+      <div class="project-tech-tags">${techPills}</div>
+      <div class="project-links">
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo" title="Launch live application">
+          <span>Live Demo</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code" title="Inspect source code on GitHub">
+          <span>Source Code</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    `;
+
+    // Clicking card opens rich modal case study (except if clicking on links directly)
+    card.addEventListener("click", (e) => {
+      if (e.target.closest(".project-link-btn")) return;
+      openProjectModal(p);
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+// Project Modal Case Study
+const projectModal = document.getElementById("projectModal");
+const modalClose = document.getElementById("modalClose");
+const modalContent = document.getElementById("modalContent");
+
+if (modalClose) modalClose.addEventListener("click", closeModal);
+if (projectModal) {
+  projectModal.addEventListener("click", (e) => {
+    if (e.target === projectModal) closeModal();
+  });
+}
+
+function openProjectModal(p) {
+  const featureList = p.features.map(f => `<li>${escapeHtml(f)}</li>`).join("");
+  const techPills = p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join("");
+
+  modalContent.innerHTML = `
+    <div class="case-study-content">
+      <div class="case-study-top">
+        <span class="case-study-emoji">${p.emoji}</span>
+        <div>
+          <span class="case-study-tag">${escapeHtml(p.tag)}</span>
+          <h2 class="case-study-title">${escapeHtml(p.title)}</h2>
+        </div>
+      </div>
+
+      <div class="case-study-section-title">Overview</div>
+      <p class="case-study-text">${escapeHtml(p.desc)}</p>
+
+      <div class="case-study-section-title">Architecture &amp; Engineering</div>
+      <p class="case-study-text">${escapeHtml(p.architecture)}</p>
+
+      <div class="case-study-section-title">Key Capabilities &amp; Features</div>
+      <ul class="case-study-features">
+        ${featureList}
+      </ul>
+
+      <div class="case-study-section-title">Technologies Employed</div>
+      <div class="project-tech-tags">${techPills}</div>
+
+      <div class="case-study-actions">
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo">
+          <span>Open Live Application</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code">
+          <span>View GitHub Source</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  `;
+  projectModal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  if (projectModal) projectModal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
 });
 
-// --- SCROLL REVEAL ---
+// =====================================================
+//  SCROLL REVEAL OBSERVER
+// =====================================================
 const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); revealObserver.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add("visible");
+      revealObserver.unobserve(e.target);
+    }
+  });
 }, { threshold: 0.12 });
 
 function observeReveal() {
@@ -189,246 +313,43 @@ function observeReveal() {
   });
 }
 
-// --- SKILLS ---
-function renderSkills() {
-  const grid = document.getElementById("skillsGrid");
-  grid.innerHTML = "";
-  skills.forEach((sk, i) => {
-    const card = document.createElement("div");
-    card.className = "skill-card";
-    card.style.animationDelay = (i * 0.07) + "s";
-    card.innerHTML = `
-      <button class="skill-delete-btn" data-i="${i}" title="Remove skill">x</button>
-      <div class="skill-header">
-        <div class="skill-name-wrap">
-          <span class="skill-icon">${sk.icon}</span>
-          <span class="skill-name">${sk.name}</span>
-        </div>
-        <span class="skill-pct">${sk.level}%</span>
-      </div>
-      <div class="skill-bar-bg"><div class="skill-bar" data-level="${sk.level}"></div></div>
-    `;
-    grid.appendChild(card);
-  });
+// =====================================================
+//  CONTACT FORM HANDLER
+// =====================================================
+const contactForm = document.getElementById("contactForm");
+const formSuccess = document.getElementById("formSuccess");
 
-  // animate bars
-  setTimeout(() => {
-    document.querySelectorAll(".skill-bar").forEach(bar => {
-      bar.style.width = bar.dataset.level + "%";
-    });
-  }, 200);
-
-  // delete skill
-  grid.querySelectorAll(".skill-delete-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const i = parseInt(btn.dataset.i);
-      if (confirm("Remove skill '" + skills[i].name + "'?")) {
-        skills.splice(i, 1);
-        saveData();
-        renderSkills();
-      }
-    });
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (formSuccess) {
+      formSuccess.style.display = "block";
+      contactForm.reset();
+      setTimeout(() => { formSuccess.style.display = "none"; }, 6000);
+    }
   });
 }
 
-// add skill modal
-const addSkillBtn = document.getElementById("addSkillBtn");
-const addSkillModal = document.getElementById("addSkillModal");
-const addSkillClose = document.getElementById("addSkillClose");
-const cancelAddSkill = document.getElementById("cancelAddSkill");
-const addSkillForm = document.getElementById("addSkillForm");
-
-addSkillBtn.addEventListener("click", () => openModal(addSkillModal));
-addSkillClose.addEventListener("click", () => closeModal(addSkillModal));
-cancelAddSkill.addEventListener("click", () => closeModal(addSkillModal));
-
-addSkillForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const name = document.getElementById("skillName").value.trim();
-  const level = parseInt(document.getElementById("skillLevel").value);
-  const icon = document.getElementById("skillEmoji").value.trim() || name.slice(0, 3).toUpperCase();
-  skills.push({ name, level, icon });
-  saveData();
-  renderSkills();
-  closeModal(addSkillModal);
-  addSkillForm.reset();
-});
-
-// --- PROJECTS ---
-function renderProjects() {
-  const grid = document.getElementById("projectsGrid");
-  grid.innerHTML = "";
-  projects.forEach((p, i) => {
-    const card = document.createElement("div");
-    card.className = "project-card";
-    card.style.animationDelay = (i * 0.1) + "s";
-    const links = [];
-    if (p.url) links.push(`<a class="project-link" href="${p.url}" target="_blank" rel="noopener">Live Demo</a>`);
-    if (p.github) links.push(`<a class="project-link" href="${p.github}" target="_blank" rel="noopener">GitHub</a>`);
-    card.innerHTML = `
-      <div class="project-actions">
-        <button class="project-edit-btn" data-i="${i}" title="Edit">Ed</button>
-        <button class="project-delete-btn" data-i="${i}" title="Delete">Del</button>
-      </div>
-      <span class="project-emoji">${p.emoji}</span>
-      <span class="project-tag">${p.tag || "Project"}</span>
-      <h3 class="project-title">${p.title}</h3>
-      <p class="project-desc">${p.desc}</p>
-      ${links.length ? '<div class="project-links">' + links.join("") + '</div>' : ""}
-    `;
-
-    // click to view (not on action buttons or links)
-    card.addEventListener("click", (e) => {
-      if (e.target.closest(".project-actions") || e.target.closest(".project-links")) return;
-      openProjectModal(p);
-    });
-
-    grid.appendChild(card);
-  });
-
-  // edit / delete project
-  grid.querySelectorAll(".project-edit-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openEditProjectModal(parseInt(btn.dataset.i));
-    });
-  });
-  grid.querySelectorAll(".project-delete-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const i = parseInt(btn.dataset.i);
-      if (confirm("Delete project '" + projects[i].title + "'?")) {
-        projects.splice(i, 1);
-        saveData();
-        renderProjects();
-      }
-    });
-  });
+// =====================================================
+//  UTILITIES & INIT
+// =====================================================
+function escapeHtml(str) {
+  if (!str) return "";
+  return str.replace(/[&<>"']/g, m => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[m]));
 }
 
-// view project modal
-const projectModal = document.getElementById("projectModal");
-const modalClose = document.getElementById("modalClose");
-const modalContent = document.getElementById("modalContent");
-modalClose.addEventListener("click", () => closeModal(projectModal));
-projectModal.addEventListener("click", (e) => { if (e.target === projectModal) closeModal(projectModal); });
+// Set dynamic copyright year
+const footerYear = document.getElementById("footerYear");
+if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-function openProjectModal(p) {
-  const links = [];
-  if (p.url) links.push(`<a class="project-link" href="${p.url}" target="_blank" rel="noopener">Live Demo</a>`);
-  if (p.github) links.push(`<a class="project-link" href="${p.github}" target="_blank" rel="noopener">GitHub</a>`);
-  modalContent.innerHTML = `
-    <span class="modal-emoji">${p.emoji}</span>
-    <h2>${p.title}</h2>
-    <span class="project-tag">${p.tag || "Project"}</span>
-    <p>${p.fullDesc || p.desc}</p>
-    ${links.length ? '<div class="modal-links">' + links.join("") + '</div>' : ""}
-  `;
-  openModal(projectModal);
-}
-
-// add/edit project modal
-const addProjectBtn = document.getElementById("addProjectBtn");
-const editProjectModal = document.getElementById("editProjectModal");
-const editModalClose = document.getElementById("editModalClose");
-const cancelEditProject = document.getElementById("cancelEditProject");
-const editProjectForm = document.getElementById("editProjectForm");
-
-addProjectBtn.addEventListener("click", () => openEditProjectModal(-1));
-editModalClose.addEventListener("click", () => closeModal(editProjectModal));
-cancelEditProject.addEventListener("click", () => closeModal(editProjectModal));
-editProjectModal.addEventListener("click", (e) => { if (e.target === editProjectModal) closeModal(editProjectModal); });
-
-function openEditProjectModal(i) {
-  editingProjectIndex = i;
-  document.getElementById("editProjectTitle").textContent = i >= 0 ? "Edit Project" : "Add Project";
-  document.getElementById("editProjectIndex").value = i;
-  const p = i >= 0 ? projects[i] : {};
-  document.getElementById("epTitle").value = p.title || "";
-  document.getElementById("epTag").value = p.tag || "";
-  document.getElementById("epDesc").value = p.desc || "";
-  document.getElementById("epFullDesc").value = p.fullDesc || "";
-  document.getElementById("epUrl").value = p.url || "";
-  document.getElementById("epGithub").value = p.github || "";
-  document.getElementById("epEmoji").value = p.emoji || "";
-  openModal(editProjectModal);
-}
-
-editProjectForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const p = {
-    title: document.getElementById("epTitle").value.trim(),
-    tag: document.getElementById("epTag").value.trim(),
-    desc: document.getElementById("epDesc").value.trim(),
-    fullDesc: document.getElementById("epFullDesc").value.trim(),
-    url: document.getElementById("epUrl").value.trim(),
-    github: document.getElementById("epGithub").value.trim(),
-    emoji: document.getElementById("epEmoji").value.trim() || "proj"
-  };
-  if (editingProjectIndex >= 0) {
-    projects[editingProjectIndex] = p;
-  } else {
-    projects.push(p);
-  }
-  saveData();
-  renderProjects();
-  closeModal(editProjectModal);
-});
-
-// --- CONTACT FORM ---
-document.getElementById("contactForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  document.getElementById("formSuccess").style.display = "block";
-  e.target.reset();
-  setTimeout(() => { document.getElementById("formSuccess").style.display = "none"; }, 5000);
-});
-
-// --- AVATAR UPLOAD ---
-document.getElementById("avatarUpload").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (ev) => {
-    const img = document.getElementById("avatarImg");
-    img.src = ev.target.result;
-    img.style.display = "block";
-    document.getElementById("avatarEmoji").style.display = "none";
-    localStorage.setItem("portfolio_avatar", ev.target.result);
-  };
-  reader.readAsDataURL(file);
-});
-
-function loadAvatar() {
-  const saved = localStorage.getItem("portfolio_avatar");
-  if (saved) {
-    document.getElementById("avatarImg").src = saved;
-    document.getElementById("avatarImg").style.display = "block";
-    document.getElementById("avatarEmoji").style.display = "none";
-  }
-}
-
-// --- MODAL HELPERS ---
-function openModal(el) { el.classList.add("open"); document.body.style.overflow = "hidden"; }
-function closeModal(el) { el.classList.remove("open"); document.body.style.overflow = ""; }
-
-// close modals on Escape
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    [projectModal, editProjectModal, addSkillModal].forEach(closeModal);
-  }
-});
-
-// --- FOOTER YEAR ---
-document.getElementById("footerYear").textContent = new Date().getFullYear();
-
-// --- INIT ---
-function init() {
-  initEditables();
-  loadAvatar();
-  renderSkills();
+// Initialize portfolio
+document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   observeReveal();
-}
-
-document.addEventListener("DOMContentLoaded", init);
+});
