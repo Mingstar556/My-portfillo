@@ -1,7 +1,7 @@
 <div align="center">
 
-# ⚡ Mingstar — Senior Full-Stack Engineer & Product Designer (UI/UX)
-**High-Performance Web Applications • Cloud Observability • Interactive FinTech • Modern Developer Tools**
+# ⚡ Mingstar — Full-Stack Web Developer & UI Designer
+**High-Performance Web Applications • Interactive UI/UX • Real-Time Web Apps • Modern Web Tools**
 
 [![GitHub followers](https://img.shields.io/github/followers/Mingstar556?style=social)](https://github.com/Mingstar556)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,8 +12,8 @@
 
 ---
 
-### 🌐 [Launch Live Portfolio](https://mingstar556.github.io/My-portfillo/)
-*Personal engineering portfolio and flagship project showcase engineered with zero build-step overhead, smooth 60fps Canvas graphics, and modern UI/UX design.*
+### 🌐 [Launch Live Portfolio](https://mingstar556.github.io/Portfolilo/)
+*Personal web development portfolio and flagship project showcase engineered with zero build-step overhead, smooth 60fps Canvas graphics, and modern UI/UX design.*
 
 </div>
 
@@ -21,15 +21,15 @@
 
 ## 🌟 Executive Summary
 
-Hello! I am **Mingstar**, a Senior Full-Stack Software Engineer and UI/UX Product Designer based in **Phnom Penh, Cambodia**. I specialize in engineering resilient, high-throughput web applications, real-time distributed telemetry tools, and pixel-perfect interactive design systems.
+Hello! I am **Mingstar**, a **Full-Stack Web Developer and UI Designer** based in **Phnom Penh, Cambodia**. I specialize in building responsive, high-performance web applications, real-time data dashboards, and pixel-perfect interactive design systems.
 
-- 💼 **Primary Focus**: React, Node.js, Express, JavaScript (ES6+), HTML5/CSS3, Canvas 2D API, RESTful APIs, WebSockets, PostgreSQL, and Docker.
-- 🎨 **Design Philosophy**: Glassmorphic, human-centered UI/UX design with rapid micro-interactions, responsive fluid typography, and accessible design tokens crafted in Figma.
+- 💼 **Primary Focus**: React, Node.js, Express, JavaScript (ES6+), HTML5/CSS3, Tailwind CSS, Canvas 2D API, RESTful APIs, WebSockets, PostgreSQL, and Docker.
+- 🎨 **Design Philosophy**: Glassmorphic, human-centered UI/UX design with rapid micro-interactions, responsive fluid typography, and accessible design systems crafted in Figma.
 - 📬 **Direct Inquiries**: [Lindara909@gmail.com](mailto:Lindara909@gmail.com) • `+855 66995754` • [GitHub Profile](https://github.com/Mingstar556)
 
 ---
 
-## 🚀 4 Flagship Engineering Projects
+## 🚀 4 Flagship Web Applications
 
 This repository hosts 4 production-grade, fully functional web applications located inside the [`projects/`](./projects/) directory:
 
@@ -97,8 +97,8 @@ An in-browser code creation and testing environment:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Mingstar556/My-portfillo.git
-   cd My-portfillo
+   git clone https://github.com/Mingstar556/Portfolilo.git
+   cd Portfolilo
    ```
 
 2. **Run locally**:
@@ -117,7 +117,7 @@ An in-browser code creation and testing environment:
 
 ## 📬 Contact & Connect
 
-- **Engineer**: Mingstar
+- **Developer**: Mingstar
 - **Email**: [Lindara909@gmail.com](mailto:Lindara909@gmail.com)
 - **Phone**: `+855 66995754`
 - **Location**: Phnom Penh, Cambodia

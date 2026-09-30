@@ -1,20 +1,21 @@
 // =====================================================
-//  PORTFOLIO — APP.JS (PRODUCTION ARCHITECTURE)
-//  Engineered by Mingstar
+//  PORTFOLIO — APP.JS
+//  Full-Stack Web Developer & UI Designer Portfolio
+//  Crafted by Mingstar
 // =====================================================
 
 // --- FLAGSHIP PRODUCTION PROJECTS DATA ---
 const FLAGSHIP_PROJECTS = [
   {
     id: "nexusflow",
-    title: "NexusFlow — Enterprise Agile & Kanban Suite",
-    tag: "Full-Stack • Agile Workspace",
+    title: "NexusFlow — Agile & Kanban Task Suite",
+    tag: "Full-Stack Web App • Productivity",
     emoji: "📊",
-    desc: "A production-grade Agile Kanban board featuring HTML5 drag-and-drop, sprint burn-down analytics, subtask checklist tracking, local persistence, and JSON state export/import.",
+    desc: "A production-ready Agile Kanban board featuring HTML5 drag-and-drop, sprint burn-down analytics, subtask checklist tracking, local persistence, and JSON state export/import.",
     tech: ["JavaScript ES6+", "HTML5 Drag & Drop", "Canvas Analytics", "LocalStorage"],
     url: "./projects/nexusflow/index.html",
-    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/nexusflow",
-    architecture: "Architected with modular ES6 state management, custom HTML5 event drag handlers, normalized task data stores, and a 2D Canvas rendering engine for velocity burn-down metrics.",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/nexusflow",
+    architecture: "Built with modular ES6 state management, custom HTML5 event drag handlers, normalized task data stores, and a 2D Canvas rendering engine for sprint velocity metrics.",
     features: [
       "Fluid drag-and-drop across 5 sprint workflow stages with drop indicators",
       "Sprint velocity & burn-down line and donut charts rendered on HTML5 Canvas",
@@ -26,12 +27,12 @@ const FLAGSHIP_PROJECTS = [
   {
     id: "devpulse",
     title: "DevPulse — Cloud Telemetry & API Sandbox Studio",
-    tag: "DevOps • Observability",
+    tag: "Full-Stack Web Tool • Observability",
     emoji: "⚡",
     desc: "Real-time cloud infrastructure observability console with live Canvas telemetry gauges, streaming service event logs with level filtering, and an interactive REST API benchmark playground.",
     tech: ["Canvas 2D HUD", "Real-Time Streams", "REST Client Engine", "Latency Benchmarking"],
     url: "./projects/devpulse/index.html",
-    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/devpulse",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/devpulse",
     architecture: "Engineered rolling 40-sample circular telemetry buffers for sub-millisecond chart repainting, non-blocking synthetic load injection, and an asynchronous HTTP probe client with statistical p95 latency calculation.",
     features: [
       "Real-time CPU, RAM, Network I/O, and RPS sparkline monitors updating at 1-second intervals",
@@ -44,12 +45,12 @@ const FLAGSHIP_PROJECTS = [
   {
     id: "cryptosphere",
     title: "CryptoSphere — Market Intelligence & Portfolio Studio",
-    tag: "FinTech • Real-Time Data",
+    tag: "FinTech • Real-Time Web App",
     emoji: "💎",
-    desc: "Institutional cryptocurrency trading analytics terminal featuring interactive price candlestick charts, moving average indicators, asset allocation donut charts, and live ticker streams.",
+    desc: "Interactive cryptocurrency trading analytics terminal featuring live price candlestick charts, moving average indicators, asset allocation donut charts, and continuous ticker streams.",
     tech: ["Interactive Canvas Charts", "SMA(20) Indicator", "Portfolio Engine", "Multi-Currency Converter"],
     url: "./projects/cryptosphere/index.html",
-    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/cryptosphere",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/cryptosphere",
     architecture: "Designed with continuous marquee ticker streaming, Canvas 2D area charts with Bézier gradient smoothing, technical SMA indicators, and a multi-currency valuation engine supporting USD, EUR, and KHR.",
     features: [
       "Continuous marquee ticker streaming real-time cryptocurrency bid/ask quotes",
@@ -67,7 +68,7 @@ const FLAGSHIP_PROJECTS = [
     desc: "In-browser code editor and live compilation sandbox with multi-language tabs (HTML/CSS/JS), virtual JavaScript console output capturing, template showcase, and responsive viewport testing.",
     tech: ["Sandboxed Iframe", "Virtual Console Listener", "Template Engine", "Responsive Viewports"],
     url: "./projects/codecraft/index.html",
-    github: "https://github.com/Mingstar556/My-portfillo/tree/main/projects/codecraft",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/codecraft",
     architecture: "Built around an isolated iframe sandbox with bi-directional postMessage communication to securely trap runtime console methods, auto-compiling user code with debounced execution.",
     features: [
       "Multi-tab editing for HTML5, CSS3, and JavaScript ES6+ with Tab indentation support",
@@ -258,7 +259,7 @@ function openProjectModal(p) {
       <div class="case-study-section-title">Overview</div>
       <p class="case-study-text">${escapeHtml(p.desc)}</p>
 
-      <div class="case-study-section-title">Architecture &amp; Engineering</div>
+      <div class="case-study-section-title">Architecture &amp; Implementation</div>
       <p class="case-study-text">${escapeHtml(p.architecture)}</p>
 
       <div class="case-study-section-title">Key Capabilities &amp; Features</div>
