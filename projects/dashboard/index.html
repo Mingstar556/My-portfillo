@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VistaBoard — Business Analytics Dashboard</title>
+  <meta name="description" content="A modern business analytics dashboard with animated Canvas charts, KPI tracking, traffic breakdowns, and a live orders table — built with zero dependencies." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <a href="../../index.html" class="back-to-portfolio" title="Return to Portfolio">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portfolio</span>
+      </a>
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+        </div>
+        <span class="brand-name">VistaBoard</span>
+      </div>
+      <nav class="side-nav">
+        <a class="nav-item active" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          <span>Overview</span>
+        </a>
+        <a class="nav-item" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>Orders</span>
+          <span class="nav-count" id="navOrders">128</span>
+        </a>
+        <a class="nav-item" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Customers</span>
+        </a>
+        <a class="nav-item" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Products</span>
+        </a>
+        <a class="nav-item" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Reports</span>
+        </a>
+        <a class="nav-item" href="#" data-nav>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-card">
+        <p class="sidebar-card-title">Monthly goal</p>
+        <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+        <p class="sidebar-card-value"><strong id="goalValue">$0</strong> <span>of $150K</span></p>
+      </div>
+    </aside>
+    <div class="sidebar-scrim" id="sidebarScrim"></div>
+
+    <!-- MAIN -->
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="topbar-titles">
+          <h1>Overview</h1>
+          <p id="topbarDate">—</p>
+        </div>
+        <div class="range-switch" role="group" aria-label="Date range">
+          <button class="range-btn" data-range="7">7D</button>
+          <button class="range-btn active" data-range="30">30D</button>
+          <button class="range-btn" data-range="90">90D</button>
+        </div>
+      </header>
+
+      <!-- KPI CARDS -->
+      <section class="kpi-grid" id="kpiGrid"></section>
+
+      <!-- CHART ROW -->
+      <section class="chart-row">
+        <div class="panel chart-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Revenue</h2>
+              <p class="panel-sub">Gross volume processed</p>
+            </div>
+            <div class="legend">
+              <span class="legend-item"><i class="dot dot-indigo"></i>Revenue</span>
+              <span class="legend-item"><i class="dot dot-pink"></i>Expenses</span>
+            </div>
+          </div>
+          <div class="big-chart-wrap">
+            <canvas id="revenueChart" height="300"></canvas>
+            <div class="chart-tooltip" id="chartTooltip"></div>
+          </div>
+        </div>
+
+        <div class="panel donut-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Traffic Sources</h2>
+              <p class="panel-sub">Sessions by channel</p>
+            </div>
+          </div>
+          <div class="donut-wrap">
+            <canvas id="trafficDonut" width="220" height="220"></canvas>
+            <div class="donut-center">
+              <strong id="donutTotal">0</strong>
+              <span>Sessions</span>
+            </div>
+          </div>
+          <ul class="donut-legend" id="donutLegend"></ul>
+        </div>
+      </section>
+
+      <!-- TABLE + BARS ROW -->
+      <section class="bottom-row">
+        <div class="panel table-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Recent Orders</h2>
+              <p class="panel-sub">Latest transactions across all channels</p>
+            </div>
+            <button class="ghost-btn" id="refreshOrders">Refresh</button>
+          </div>
+          <div class="table-scroll">
+            <table class="orders-table">
+              <thead>
+                <tr><th>Customer</th><th>Product</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+              </thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel bars-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Sales by Channel</h2>
+              <p class="panel-sub">This period vs previous</p>
+            </div>
+          </div>
+          <div class="bars-wrap">
+            <canvas id="channelBars" height="240"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <footer class="app-foot">
+        VistaBoard · zero-dependency Canvas analytics demo · built by Mingstar
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

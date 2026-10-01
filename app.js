@@ -13,6 +13,7 @@ const FLAGSHIP_PROJECTS = [
     title: "NexusFlow — Agile & Kanban Task Suite",
     tag: "Full-Stack Web App • Productivity",
     emoji: "📊",
+    image: "assets/previews/nexusflow.jpg",
     desc: "A production-ready Agile Kanban board featuring HTML5 drag-and-drop, sprint burn-down analytics, subtask checklist tracking, local persistence, and JSON state export/import.",
     tech: ["JavaScript ES6+", "HTML5 Drag & Drop", "Canvas Analytics", "LocalStorage"],
     url: "./projects/nexusflow/index.html",
@@ -31,6 +32,7 @@ const FLAGSHIP_PROJECTS = [
     title: "DevPulse — Cloud Telemetry & API Sandbox Studio",
     tag: "Full-Stack Web Tool • Observability",
     emoji: "⚡",
+    image: "assets/previews/devpulse.jpg",
     desc: "Real-time cloud infrastructure observability console with live Canvas telemetry gauges, streaming service event logs with level filtering, and an interactive REST API benchmark playground.",
     tech: ["Canvas 2D HUD", "Real-Time Streams", "REST Client Engine", "Latency Benchmarking"],
     url: "./projects/devpulse/index.html",
@@ -45,21 +47,23 @@ const FLAGSHIP_PROJECTS = [
     ]
   },
   {
-    id: "cryptosphere",
-    title: "CryptoSphere — Market Intelligence & Portfolio Studio",
-    tag: "FinTech • Real-Time Web App",
-    emoji: "💎",
-    desc: "Interactive cryptocurrency trading analytics terminal featuring live price candlestick charts, moving average indicators, asset allocation donut charts, and continuous ticker streams.",
-    tech: ["Interactive Canvas Charts", "SMA(20) Indicator", "Portfolio Engine", "Multi-Currency Converter"],
-    url: "./projects/cryptosphere/index.html",
-    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/cryptosphere",
-    architecture: "Designed with continuous marquee ticker streaming, Canvas 2D area charts with Bézier gradient smoothing, technical SMA indicators, and a multi-currency valuation engine supporting USD, EUR, and KHR.",
+    id: "dashboard",
+    title: "VistaBoard — Business Analytics Dashboard",
+    tag: "Data Dashboard • Admin SaaS",
+    emoji: "📈",
+    image: "assets/previews/dashboard.jpg",
+    desc: "A modern revenue analytics dashboard featuring animated Canvas charts with hover tooltips, KPI cards with sparklines, a traffic-sources donut, channel comparison bars, and a live orders table with range switching.",
+    tech: ["Canvas Area Chart", "Donut & Bar Charts", "Sparkline KPIs", "Range Switcher"],
+    url: "./projects/dashboard/index.html",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/dashboard",
+    architecture: "Built with a seeded pseudo-random data engine for consistent demo states, an animated ease-out Canvas area chart with crosshair tooltips, devicePixelRatio-aware HiDPI rendering, and a modular panel architecture that re-renders per date range.",
     features: [
-      "Continuous marquee ticker streaming real-time cryptocurrency bid/ask quotes",
-      "Interactive timeframes (24H, 7D, 1M, 1Y) with toggleable 20-period Moving Average (SMA)",
-      "Personal portfolio profit & loss tracker with all-time return calculation and local persistence",
-      "Dynamic asset allocation donut chart rendered natively on HTML5 Canvas",
-      "Instant fiat & crypto currency converter with support for USD, EUR, and KHR"
+      "Animated revenue area chart with expenses overlay and hover crosshair tooltips",
+      "Four KPI cards (Revenue, Active Users, Conversion, AOV) with inline sparkline graphs",
+      "Traffic-sources donut chart with percentage legend and center session totals",
+      "7D / 30D / 90D range switcher that regenerates every chart, KPI, and table",
+      "Recent orders table with customer avatars and Paid/Pending/Refunded status chips",
+      "Collapsible sidebar with monthly-goal progress, fully responsive down to mobile"
     ]
   },
   {
@@ -67,6 +71,7 @@ const FLAGSHIP_PROJECTS = [
     title: "CodeCraft Studio — In-Browser Code Sandbox & IDE",
     tag: "Developer Tools • Web Sandbox",
     emoji: "🚀",
+    image: "assets/previews/codecraft.jpg",
     desc: "In-browser code editor and live compilation sandbox with multi-language tabs (HTML/CSS/JS), virtual JavaScript console output capturing, template showcase, and responsive viewport testing.",
     tech: ["Sandboxed Iframe", "Virtual Console Listener", "Template Engine", "Responsive Viewports"],
     url: "./projects/codecraft/index.html",
@@ -283,26 +288,26 @@ function renderProjects() {
     const techPills = p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join("");
 
     card.innerHTML = `
-      <div class="project-top-row">
-        <div class="project-emoji-box">${p.emoji}</div>
-        <div class="project-meta">
-          <span class="live-badge"><span class="live-dot"></span>Live App</span>
-          <span class="project-tag">${escapeHtml(p.tag)}</span>
+      <div class="project-preview">
+        <img src="${p.image}" alt="Screenshot preview of ${escapeHtml(p.title)}" loading="lazy" />
+        <span class="live-badge"><span class="live-dot"></span>Live App</span>
+      </div>
+      <div class="project-body">
+        <span class="project-tag">${escapeHtml(p.tag)}</span>
+        <h3 class="project-title">${escapeHtml(p.title)}</h3>
+        <p class="project-desc">${escapeHtml(p.desc)}</p>
+        <div class="project-tech-tags">${techPills}</div>
+        <div class="project-links">
+          <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo" title="Launch live application">
+            <span>▶ Launch Live Demo</span>
+          </a>
+          <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code" title="Inspect source code on GitHub">
+            <span>Source Code</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
         </div>
+        <p class="card-hint">click card to preview in page ↗</p>
       </div>
-      <h3 class="project-title">${escapeHtml(p.title)}</h3>
-      <p class="project-desc">${escapeHtml(p.desc)}</p>
-      <div class="project-tech-tags">${techPills}</div>
-      <div class="project-links">
-        <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo" title="Launch live application">
-          <span>▶ Launch Live Demo</span>
-        </a>
-        <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code" title="Inspect source code on GitHub">
-          <span>Source Code</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        </a>
-      </div>
-      <p class="card-hint">click card to preview in page ↗</p>
     `;
 
     // Card click / Enter opens the in-page demo viewer
