@@ -2,6 +2,8 @@
 //  PORTFOLIO — APP.JS
 //  Full-Stack Web Developer & UI Designer Portfolio
 //  Crafted by Mingstar
+//  · 3D interactive profile (pointer tilt + gyroscope)
+//  · In-page Live Demo viewer (iframe + device sizes)
 // =====================================================
 
 // --- FLAGSHIP PRODUCTION PROJECTS DATA ---
@@ -80,6 +82,79 @@ const FLAGSHIP_PROJECTS = [
   }
 ];
 
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// =====================================================
+//  3D INTERACTIVE PROFILE (pointer tilt + gyroscope)
+// =====================================================
+(function init3DAvatar() {
+  const scene = document.getElementById("avatarScene");
+  const tilt = document.getElementById("avatarTilt");
+  if (!scene || !tilt || REDUCED_MOTION) return;
+
+  const MAX_TILT = 13; // degrees
+
+  function setGlare(clientX, clientY) {
+    const r = scene.getBoundingClientRect();
+    scene.style.setProperty("--gx", `${((clientX - r.left) / r.width) * 100}%`);
+    scene.style.setProperty("--gy", `${((clientY - r.top) / r.height) * 100}%`);
+  }
+
+  // --- Pointer-driven tilt (desktop / any fine pointer) ---
+  let raf = null;
+  scene.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    const r = scene.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    scene.classList.add("is-tilting");
+    setGlare(e.clientX, e.clientY);
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      tilt.style.transform =
+        `rotateY(${(px * MAX_TILT * 2).toFixed(2)}deg) rotateX(${(-py * MAX_TILT * 2).toFixed(2)}deg)`;
+      raf = null;
+    });
+  });
+
+  scene.addEventListener("pointerleave", () => {
+    scene.classList.remove("is-tilting");
+    tilt.style.transform = "";
+  });
+
+  // --- Gyroscope tilt (mobile) — iOS needs a one-time permission grant ---
+  const isTouchPrimary = window.matchMedia("(hover: none)").matches;
+  if (!isTouchPrimary || typeof DeviceOrientationEvent === "undefined") return;
+
+  function applyGyro(beta, gamma) {
+    const g = Math.max(-24, Math.min(24, gamma)) / 24;   // left-right
+    const b = Math.max(-24, Math.min(24, beta - 45)) / 24; // front-back, holding phone ~45°
+    tilt.style.transform =
+      `rotateY(${(g * (MAX_TILT - 3)).toFixed(2)}deg) rotateX(${(-b * (MAX_TILT - 5)).toFixed(2)}deg)`;
+  }
+
+  function startGyro() {
+    window.addEventListener("deviceorientation", (e) => {
+      if (e.beta == null || e.gamma == null) return;
+      applyGyro(e.beta, e.gamma);
+    }, { passive: true });
+  }
+
+  scene.addEventListener("pointerdown", function requestGyro() {
+    try {
+      if (typeof DeviceOrientationEvent.requestPermission === "function") {
+        DeviceOrientationEvent.requestPermission()
+          .then((state) => { if (state === "granted") startGyro(); })
+          .catch(() => {});
+        scene.removeEventListener("pointerdown", requestGyro);
+      } else {
+        startGyro();
+        scene.removeEventListener("pointerdown", requestGyro);
+      }
+    } catch (_) { /* gyro unavailable */ }
+  });
+})();
+
 // =====================================================
 //  PARTICLE CANVAS BACKGROUND
 // =====================================================
@@ -88,7 +163,8 @@ const FLAGSHIP_PROJECTS = [
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let W, H, particles = [];
-  const COUNT = 75;
+  const isSmall = window.innerWidth < 768;
+  const COUNT = isSmall ? 32 : 72;
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -129,7 +205,6 @@ const FLAGSHIP_PROJECTS = [
       ctx.fill();
     });
 
-    // Connecting Lines
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -145,7 +220,7 @@ const FLAGSHIP_PROJECTS = [
         }
       }
     }
-    requestAnimationFrame(draw);
+    if (!REDUCED_MOTION) requestAnimationFrame(draw);
   }
 
   window.addEventListener("resize", resize);
@@ -160,7 +235,7 @@ window.addEventListener("scroll", () => {
   const navbar = document.getElementById("navbar");
   if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 50);
   updateActiveNav();
-});
+}, { passive: true });
 
 function updateActiveNav() {
   const sections = ["hero", "about", "skills", "projects", "contact"];
@@ -179,14 +254,20 @@ function updateActiveNav() {
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 if (hamburger && navLinks) {
-  hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
+  hamburger.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    hamburger.setAttribute("aria-expanded", String(open));
+  });
   navLinks.querySelectorAll(".nav-link").forEach(link => {
-    link.addEventListener("click", () => navLinks.classList.remove("open"));
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      hamburger.setAttribute("aria-expanded", "false");
+    });
   });
 }
 
 // =====================================================
-//  PROJECTS RENDERING & CASE STUDY MODAL
+//  PROJECTS RENDERING
 // =====================================================
 function renderProjects() {
   const grid = document.getElementById("projectsGrid");
@@ -194,59 +275,115 @@ function renderProjects() {
   grid.innerHTML = "";
 
   FLAGSHIP_PROJECTS.forEach((p, i) => {
-    const card = document.createElement("div");
+    const card = document.createElement("article");
     card.className = "project-card";
     card.style.animationDelay = `${i * 0.1}s`;
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open live demo of ${p.title}`);
 
     const techPills = p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join("");
 
     card.innerHTML = `
       <div class="project-top-row">
         <div class="project-emoji-box">${p.emoji}</div>
-        <span class="project-tag">${escapeHtml(p.tag)}</span>
+        <div class="project-meta">
+          <span class="live-badge"><span class="live-dot"></span>Live App</span>
+          <span class="project-tag">${escapeHtml(p.tag)}</span>
+        </div>
       </div>
       <h3 class="project-title">${escapeHtml(p.title)}</h3>
       <p class="project-desc">${escapeHtml(p.desc)}</p>
       <div class="project-tech-tags">${techPills}</div>
       <div class="project-links">
         <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo" title="Launch live application">
-          <span>Live Demo</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          <span>▶ Launch Live Demo</span>
         </a>
         <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code" title="Inspect source code on GitHub">
           <span>Source Code</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </div>
+      <p class="card-hint">click card to preview in page ↗</p>
     `;
 
-    // Clicking card opens rich modal case study (except if clicking on links directly)
+    // Card click / Enter opens the in-page demo viewer
     card.addEventListener("click", (e) => {
       if (e.target.closest(".project-link-btn")) return;
-      openProjectModal(p);
+      openDemoModal(p);
+    });
+    card.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && !e.target.closest(".project-link-btn")) {
+        e.preventDefault();
+        openDemoModal(p);
+      }
     });
 
     grid.appendChild(card);
   });
 }
 
-// Project Modal Case Study
-const projectModal = document.getElementById("projectModal");
-const modalClose = document.getElementById("modalClose");
-const modalContent = document.getElementById("modalContent");
+// =====================================================
+//  LIVE DEMO VIEWER MODAL (in-page iframe + case study)
+// =====================================================
+const demoModal = document.getElementById("demoModal");
+const demoModalClose = document.getElementById("demoModalClose");
+const demoFrame = document.getElementById("demoFrame");
+const demoViewport = document.getElementById("demoViewport");
+const demoOpenTab = document.getElementById("demoOpenTab");
+const tabPreview = document.getElementById("tabPreview");
+const tabCase = document.getElementById("tabCase");
+const panePreview = document.getElementById("panePreview");
+const paneCase = document.getElementById("paneCase");
+const demoCaseContent = document.getElementById("demoCaseContent");
 
-if (modalClose) modalClose.addEventListener("click", closeModal);
-if (projectModal) {
-  projectModal.addEventListener("click", (e) => {
-    if (e.target === projectModal) closeModal();
+function openDemoModal(p) {
+  if (!demoModal) return;
+  document.getElementById("demoEmoji").textContent = p.emoji;
+  document.getElementById("demoTitle").textContent = p.title;
+  document.getElementById("demoTag").textContent = p.tag;
+  demoOpenTab.href = p.url;
+  demoFrame.src = p.url; // loads only when opened
+
+  // reset to preview tab + desktop width each time
+  switchTab("preview");
+  setDevice(demoViewport.querySelector(".device-btn.active")?.dataset.w || "full");
+
+  renderCaseStudy(p);
+  demoModal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  demoModalClose && demoModalClose.focus();
+}
+
+function closeDemoModal() {
+  if (!demoModal) return;
+  demoModal.classList.remove("open");
+  demoFrame.src = "about:blank"; // stop the running app
+  maybeRestoreScroll();
+}
+
+function switchTab(which) {
+  const isPreview = which === "preview";
+  tabPreview.classList.toggle("active", isPreview);
+  tabCase.classList.toggle("active", !isPreview);
+  tabPreview.setAttribute("aria-selected", String(isPreview));
+  tabCase.setAttribute("aria-selected", String(!isPreview));
+  panePreview.hidden = !isPreview;
+  paneCase.hidden = isPreview;
+}
+
+function setDevice(w) {
+  if (!demoViewport) return;
+  demoViewport.dataset.device = w === "full" ? "full" : (w === "820" ? "tablet" : "mobile");
+  document.querySelectorAll(".device-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.w === String(w));
   });
 }
 
-function openProjectModal(p) {
+function renderCaseStudy(p) {
   const featureList = p.features.map(f => `<li>${escapeHtml(f)}</li>`).join("");
   const techPills = p.tech.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join("");
-
-  modalContent.innerHTML = `
+  demoCaseContent.innerHTML = `
     <div class="case-study-content">
       <div class="case-study-top">
         <span class="case-study-emoji">${p.emoji}</span>
@@ -263,9 +400,7 @@ function openProjectModal(p) {
       <p class="case-study-text">${escapeHtml(p.architecture)}</p>
 
       <div class="case-study-section-title">Key Capabilities &amp; Features</div>
-      <ul class="case-study-features">
-        ${featureList}
-      </ul>
+      <ul class="case-study-features">${featureList}</ul>
 
       <div class="case-study-section-title">Technologies Employed</div>
       <div class="project-tech-tags">${techPills}</div>
@@ -273,27 +408,30 @@ function openProjectModal(p) {
       <div class="case-study-actions">
         <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-live-demo">
           <span>Open Live Application</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
         </a>
         <a href="${p.github}" target="_blank" rel="noopener noreferrer" class="project-link-btn btn-github-code">
           <span>View GitHub Source</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </div>
     </div>
   `;
-  projectModal.classList.add("open");
-  document.body.style.overflow = "hidden";
 }
 
-function closeModal() {
-  if (projectModal) projectModal.classList.remove("open");
-  if (!telegramQRModal || !telegramQRModal.classList.contains("open")) {
-    document.body.style.overflow = "";
-  }
+if (demoModalClose) demoModalClose.addEventListener("click", closeDemoModal);
+if (demoModal) {
+  demoModal.addEventListener("click", (e) => {
+    if (e.target === demoModal) closeDemoModal();
+  });
 }
+if (tabPreview) tabPreview.addEventListener("click", () => switchTab("preview"));
+if (tabCase) tabCase.addEventListener("click", () => switchTab("case"));
+document.querySelectorAll(".device-btn").forEach(btn => {
+  btn.addEventListener("click", () => setDevice(btn.dataset.w));
+});
 
-// Telegram QR Code Modal
+// =====================================================
+//  TELEGRAM QR MODAL
+// =====================================================
 const telegramQRModal = document.getElementById("telegramQRModal");
 const btnViewTelegramQR = document.getElementById("btnViewTelegramQR");
 const qrModalClose = document.getElementById("qrModalClose");
@@ -304,11 +442,7 @@ if (btnViewTelegramQR && telegramQRModal) {
     document.body.style.overflow = "hidden";
   });
 }
-
-if (qrModalClose) {
-  qrModalClose.addEventListener("click", closeTelegramQRModal);
-}
-
+if (qrModalClose) qrModalClose.addEventListener("click", closeTelegramQRModal);
 if (telegramQRModal) {
   telegramQRModal.addEventListener("click", (e) => {
     if (e.target === telegramQRModal) closeTelegramQRModal();
@@ -317,15 +451,22 @@ if (telegramQRModal) {
 
 function closeTelegramQRModal() {
   if (telegramQRModal) telegramQRModal.classList.remove("open");
-  if (!projectModal || !projectModal.classList.contains("open")) {
-    document.body.style.overflow = "";
-  }
+  maybeRestoreScroll();
+}
+
+function maybeRestoreScroll() {
+  const anyOpen = document.querySelector(".modal-overlay.open");
+  if (!anyOpen) document.body.style.overflow = "";
 }
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
-    closeModal();
+    closeDemoModal();
     closeTelegramQRModal();
+    if (navLinks && navLinks.classList.contains("open")) {
+      navLinks.classList.remove("open");
+      hamburger && hamburger.setAttribute("aria-expanded", "false");
+    }
   }
 });
 
@@ -379,11 +520,9 @@ function escapeHtml(str) {
   }[m]));
 }
 
-// Set dynamic copyright year
 const footerYear = document.getElementById("footerYear");
 if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-// Initialize portfolio
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   observeReveal();
