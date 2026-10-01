@@ -107,7 +107,6 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
     const r = scene.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;   // -0.5 … 0.5
     const py = (e.clientY - r.top) / r.height - 0.5;
-    scene.classList.add("is-tilting");
     setGlare(e.clientX, e.clientY);
     if (raf) return;
     raf = requestAnimationFrame(() => {
@@ -118,7 +117,6 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
   });
 
   scene.addEventListener("pointerleave", () => {
-    scene.classList.remove("is-tilting");
     tilt.style.transform = "";
   });
 
