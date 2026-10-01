@@ -288,11 +288,45 @@ function openProjectModal(p) {
 
 function closeModal() {
   if (projectModal) projectModal.classList.remove("open");
-  document.body.style.overflow = "";
+  if (!telegramQRModal || !telegramQRModal.classList.contains("open")) {
+    document.body.style.overflow = "";
+  }
+}
+
+// Telegram QR Code Modal
+const telegramQRModal = document.getElementById("telegramQRModal");
+const btnViewTelegramQR = document.getElementById("btnViewTelegramQR");
+const qrModalClose = document.getElementById("qrModalClose");
+
+if (btnViewTelegramQR && telegramQRModal) {
+  btnViewTelegramQR.addEventListener("click", () => {
+    telegramQRModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  });
+}
+
+if (qrModalClose) {
+  qrModalClose.addEventListener("click", closeTelegramQRModal);
+}
+
+if (telegramQRModal) {
+  telegramQRModal.addEventListener("click", (e) => {
+    if (e.target === telegramQRModal) closeTelegramQRModal();
+  });
+}
+
+function closeTelegramQRModal() {
+  if (telegramQRModal) telegramQRModal.classList.remove("open");
+  if (!projectModal || !projectModal.classList.contains("open")) {
+    document.body.style.overflow = "";
+  }
 }
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
+  if (e.key === "Escape") {
+    closeModal();
+    closeTelegramQRModal();
+  }
 });
 
 // =====================================================

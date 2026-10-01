@@ -120,6 +120,8 @@ An in-browser code creation and testing environment:
 - **Developer**: Mingstar
 - **Email**: [Lindara909@gmail.com](mailto:Lindara909@gmail.com)
 - **Phone**: `+855 66995754`
+- **Telegram**: [@Mingstar01 (t.me/Mingstar01)](https://t.me/Mingstar01)
+- **TikTok**: [@mingstar556 (tiktok.com/@mingstar556)](https://www.tiktok.com/@mingstar556)
 - **Location**: Phnom Penh, Cambodia
 - **GitHub**: [@Mingstar556](https://github.com/Mingstar556)
 

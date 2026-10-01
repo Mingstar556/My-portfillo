@@ -784,6 +784,45 @@ img { max-width: 100%; display: block; }
   color: var(--gold);
   flex-shrink: 0;
 }
+.contact-icon-telegram {
+  color: #38bdf8;
+  background: rgba(14, 165, 233, 0.15);
+  border-color: rgba(14, 165, 233, 0.3);
+}
+.contact-icon-tiktok {
+  color: #ff0050;
+  background: rgba(255, 0, 80, 0.12);
+  border-color: rgba(255, 0, 80, 0.3);
+}
+.contact-info-block { flex: 1; }
+.contact-header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.btn-qr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-main);
+  color: var(--cyan);
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-qr-pill:hover {
+  background: var(--cyan);
+  color: #000;
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.4);
+  transform: translateY(-1px);
+}
+
 .contact-type {
   display: block;
   font-size: 0.76rem;
@@ -798,6 +837,69 @@ img { max-width: 100%; display: block; }
   transition: color var(--transition);
 }
 a.contact-val:hover { color: var(--gold); }
+
+/* QR MODAL */
+.qr-modal-box {
+  max-width: 420px;
+  text-align: center;
+  padding: 2.25rem 2rem;
+}
+.qr-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.qr-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.qr-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(41, 182, 246, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(41, 182, 246, 0.3);
+}
+.qr-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--white);
+}
+.qr-subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 320px;
+  line-height: 1.5;
+}
+.qr-subtitle strong { color: var(--gold); }
+.qr-image-wrapper {
+  position: relative;
+  padding: 0.75rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(41, 182, 246, 0.2);
+}
+.telegram-qr-img {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  display: block;
+}
+.qr-footer-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.25rem;
+}
 
 /* FORMS */
 .form-group { margin-bottom: 1.25rem; }
