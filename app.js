@@ -9,6 +9,25 @@
 // --- FLAGSHIP PRODUCTION PROJECTS DATA ---
 const FLAGSHIP_PROJECTS = [
   {
+    id: "luxeshop",
+    title: "LuxeShop — E-Commerce Storefront & Admin Studio",
+    tag: "Full-Stack Web App • E-Commerce",
+    emoji: "🛒",
+    image: "assets/previews/luxeshop.jpg",
+    desc: "A high-performance modern e-commerce storefront and store management suite featuring dynamic catalog filtering, an interactive slide-out cart, coupon validation, quick-view modals, and live operations telemetry.",
+    tech: ["JavaScript ES6+", "Cart State Engine", "Simulated Checkout", "Admin Telemetry", "LocalStorage"],
+    url: "./projects/luxeshop/index.html",
+    github: "https://github.com/Mingstar556/Portfolilo/tree/main/projects/luxeshop",
+    architecture: "Engineered with modular client-side state management, responsive CSS Grid architecture, synchronized local storage cart persistence, coupon calculation engine, and an integrated real-time store operations dashboard.",
+    features: [
+      "Curated 19-SKU catalog with category tabs (Electronics, Clothing, Home, Books, Sports) and live search",
+      "Interactive slide-out cart drawer with real-time tax, dynamic shipping, and coupon validation (LUXE20)",
+      "Product quick-view modal with high-res photography, star ratings, and quantity selector",
+      "Simulated 3-step checkout with persona autofill, payment method selection, and generated confirmation receipt",
+      "Integrated Admin Studio peek with real-time revenue telemetry, live fulfillment queue, and inventory stock manager"
+    ]
+  },
+  {
     id: "nexusflow",
     title: "NexusFlow — Agile & Kanban Task Suite",
     tag: "Full-Stack Web App • Productivity",

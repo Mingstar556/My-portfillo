@@ -29,20 +29,31 @@ Hello! I am **Mingstar**, a **Full-Stack Web Developer and UI Designer** based i
 
 ---
 
-## 🚀 4 Flagship Web Applications
+## 🚀 5 Flagship Web Applications
 
-This repository hosts 4 production-grade, fully functional web applications located inside the [`projects/`](./projects/) directory:
+This repository hosts 5 production-grade, fully functional web applications located inside the [`projects/`](./projects/) directory:
 
 | Project | Domain | Architecture & Highlights | Live Demo | Source Code |
 | :--- | :--- | :--- | :---: | :---: |
+| **🛒 LuxeShop** | Full-Stack E-Commerce & Operations | Curated product catalog, slide-out cart drawer, discount validation, simulated checkout, and real-time admin telemetry. | [Launch App](./projects/luxeshop/index.html) | [`/projects/luxeshop`](./projects/luxeshop) |
 | **📊 NexusFlow** | Enterprise Agile & Kanban | Drag-and-drop Kanban workflow, sprint burn-down analytics on HTML5 Canvas, subtask checklists, and JSON backup export/import. | [Launch App](./projects/nexusflow/index.html) | [`/projects/nexusflow`](./projects/nexusflow) |
 | **⚡ DevPulse** | Cloud Telemetry & API Sandbox | Real-time CPU/RAM/Net gauges, live streaming server event terminal with level filtering, and HTTP client latency benchmarking (p95). | [Launch App](./projects/devpulse/index.html) | [`/projects/devpulse`](./projects/devpulse) |
-| **💎 CryptoSphere** | FinTech & Market Intelligence | Live ticker marquee, interactive price charts with SMA(20) indicators, cryptocurrency portfolio P&L tracker, and currency converter. | [Launch App](./projects/cryptosphere/index.html) | [`/projects/cryptosphere`](./projects/cryptosphere) |
+| **📈 VistaBoard** | Business Analytics Dashboard | Animated Canvas revenue charts, KPI metric cards with sparklines, traffic sources donut, and recent orders manager. | [Launch App](./projects/dashboard/index.html) | [`/projects/dashboard`](./projects/dashboard) |
 | **🚀 CodeCraft Studio** | In-Browser Code Sandbox IDE | Sandboxed multi-tab code runner (HTML/CSS/JS), virtual JavaScript console receiver, responsive device viewport switcher, and bundle exporter. | [Launch App](./projects/codecraft/index.html) | [`/projects/codecraft`](./projects/codecraft) |
 
 ---
 
-### 1. 📊 NexusFlow — Enterprise Agile & Kanban Suite
+### 1. 🛒 LuxeShop — E-Commerce Storefront & Admin Studio
+*Location: [`projects/luxeshop/`](./projects/luxeshop/)*
+
+A modern, high-performance e-commerce platform and operations console:
+- **Curated Multi-Category Catalog**: Instant filtering across Electronics, Clothing, Home & Kitchen, Books, and Sports with live text search and sort controls.
+- **Interactive Cart Drawer**: Real-time slide-out drawer with quantity steppers, subtotal calculation, free shipping progress bar ($100 goal), and promo coupon validation (`LUXE20` for 20% off).
+- **Product Quick-View Modal**: Instant preview of high-res image gallery, rating stars, live stock status, and add-to-cart actions.
+- **Simulated 3-Step Checkout**: 1-click demo persona auto-fill, payment method selection (Card, Apple/G-Pay, COD), and generated order confirmation with tracking IDs.
+- **Store Operations & Telemetry**: Toggleable Admin Studio with real-time gross revenue calculation, fulfillment order queue, and inline inventory stock steppers.
+
+### 2. 📊 NexusFlow — Enterprise Agile & Kanban Suite
 *Location: [`projects/nexusflow/`](./projects/nexusflow/)*
 
 An enterprise project management suite featuring:
@@ -52,7 +63,7 @@ An enterprise project management suite featuring:
 - **Checklist Progress Engine**: Subtask tracking with real-time percentage completion calculations.
 - **Data Persistence**: Offline-first persistence via `localStorage` with JSON state export and import.
 
-### 2. ⚡ DevPulse — Cloud Telemetry & API Sandbox Studio
+### 3. ⚡ DevPulse — Cloud Telemetry & API Sandbox Studio
 *Location: [`projects/devpulse/`](./projects/devpulse/)*
 
 A mission-critical observability HUD and HTTP test playground:
@@ -62,17 +73,16 @@ A mission-critical observability HUD and HTTP test playground:
 - **REST API Client & Benchmark Tool**: Supports GET, POST, PUT, DELETE requests with headers, JSON payload editor, and automated 5x rapid probe benchmark calculating average and p95 latency.
 - **Topology Map**: Global microservice cluster nodes with replication status, cache hit rates, and ingress health.
 
-### 3. 💎 CryptoSphere — Real-Time Crypto Intelligence & Portfolio
-*Location: [`projects/cryptosphere/`](./projects/cryptosphere/)*
+### 4. 📈 VistaBoard — Business Analytics Dashboard
+*Location: [`projects/dashboard/`](./projects/dashboard/)*
 
-An institutional crypto asset dashboard:
-- **Streaming Marquee Ticker**: Continuous ticker bar displaying real-time quotes for Bitcoin, Ethereum, Solana, Cardano, Avalanche, and more.
-- **Interactive Price Chart**: Canvas 2D area charts with Bézier gradient curves, selectable timeframes (`24H`, `7D`, `1M`, `1Y`), and 20-period Moving Average (SMA).
-- **Portfolio P&L Engine**: Real-time position tracking calculating total USD value, cost basis, and all-time return percentage.
-- **Asset Allocation Donut**: Dynamic multi-color asset breakdown donut chart rendered on Canvas.
-- **Multi-Currency Calculator**: Converts between major cryptocurrencies and USD, EUR, and KHR (Cambodian Riel).
+A comprehensive SaaS revenue intelligence dashboard:
+- **Animated Canvas Revenue Area Chart**: Bézier curves with expense overlays and crosshair tooltip tracking.
+- **KPI Sparklines**: Four metric cards (Revenue, Active Users, Conversion Rate, AOV) with trend indicators.
+- **Traffic Source Donut**: Visual channel distribution with percentage calculations.
+- **Orders Table**: Multi-status transaction feed with customer avatars and range toggling (7D, 30D, 90D).
 
-### 4. 🚀 CodeCraft Studio — In-Browser Code Sandbox & Component IDE
+### 5. 🚀 CodeCraft Studio — In-Browser Code Sandbox & Component IDE
 *Location: [`projects/codecraft/`](./projects/codecraft/)*
 
 An in-browser code creation and testing environment:

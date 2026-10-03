@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LuxeShop — E-Commerce Storefront &amp; Admin Studio</title>
+  <meta name="description" content="A modern, high-performance e-commerce storefront and admin operations studio featuring interactive catalog filtering, slide-out cart, checkout pipeline, and live sales telemetry." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-dark">
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- APP SHELL -->
+  <div class="app-shell">
+
+    <!-- TOP HEADER -->
+    <header class="site-header">
+      <div class="header-inner">
+        <!-- Brand & Portfolio Link -->
+        <div class="header-brand-wrap">
+          <a href="../../index.html" class="back-to-portfolio" title="Return to Portfolio">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Portfolio</span>
+          </a>
+          <div class="brand">
+            <div class="brand-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-title">Luxe<span class="brand-highlight">Shop</span></span>
+              <span class="brand-badge">v2.5 Full-Stack</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode Switcher (Storefront vs Admin Studio) -->
+        <div class="view-mode-tabs" role="tablist" aria-label="Application View Mode">
+          <button class="mode-tab-btn active" id="tabStorefront" role="tab" aria-selected="true" data-mode="storefront">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Storefront</span>
+          </button>
+          <button class="mode-tab-btn" id="tabAdmin" role="tab" aria-selected="false" data-mode="admin">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+            <span>Admin Studio</span>
+            <span class="admin-pulse-dot" title="Live telemetry active"></span>
+          </button>
+        </div>
+
+        <!-- Header Actions: Search, Theme, Cart -->
+        <div class="header-actions">
+          <div class="header-search-wrap">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="globalSearch" placeholder="Search products, brands, tags..." autocomplete="off" />
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search" hidden>&times;</button>
+          </div>
+
+          <button class="action-icon-btn theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle dark and light theme" title="Toggle theme">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+
+          <button class="action-icon-btn cart-btn" id="cartOpenBtn" aria-label="Open shopping cart" title="Shopping Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span class="cart-badge" id="cartBadgeCount">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROMO MARQUEE BANNER -->
+    <div class="promo-banner">
+      <div class="promo-content">
+        <span class="promo-tag">FLASH OFFER</span>
+        <span class="promo-text">Get <strong>20% OFF</strong> today with code <code class="promo-code-pill" id="copyPromoCode" title="Click to copy promo code">LUXE20</code></span>
+        <span class="promo-divider">•</span>
+        <span class="promo-feature">⚡ Free express shipping on orders over $100</span>
+        <span class="promo-divider">•</span>
+        <span class="promo-feature">🔒 Secure simulated checkout</span>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main class="main-content" id="mainContent">
+
+      <!-- ==========================================
+           VIEW 1: STOREFRONT
+           ========================================== -->
+      <section class="view-panel" id="viewStorefront">
+        
+        <!-- HERO SPOTLIGHT -->
+        <section class="store-hero">
+          <div class="store-hero-bg"></div>
+          <div class="store-hero-content">
+            <div class="hero-left">
+              <span class="hero-badge">✨ Spring 2026 Curated Showcase</span>
+              <h1 class="hero-heading">Elevate Everyday Living With Precision Engineering.</h1>
+              <p class="hero-subtext">Explore high-fidelity consumer electronics, organic apparel, culinary tools, and fitness gear crafted for durability and aesthetics.</p>
+              <div class="hero-tags">
+                <button class="hero-quick-tag active" data-category="all">All Catalog</button>
+                <button class="hero-quick-tag" data-category="Electronics">Electronics</button>
+                <button class="hero-quick-tag" data-category="Clothing">Clothing</button>
+                <button class="hero-quick-tag" data-category="Home & Kitchen">Home &amp; Kitchen</button>
+                <button class="hero-quick-tag" data-category="Sports">Sports</button>
+              </div>
+            </div>
+            <div class="hero-right">
+              <div class="hero-spotlight-card" id="heroSpotlightCard">
+                <div class="spotlight-badge">Featured Pick</div>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Wireless Noise-Cancelling Headphones" class="spotlight-img" id="spotlightImg" />
+                <div class="spotlight-info">
+                  <h3 class="spotlight-title" id="spotlightTitle">Wireless Noise-Cancelling Headphones</h3>
+                  <div class="spotlight-price-row">
+                    <span class="spotlight-price" id="spotlightPrice">$249.99</span>
+                    <span class="spotlight-orig" id="spotlightOrig">$349.99</span>
+                    <span class="spotlight-save">Save $100</span>
+                  </div>
+                  <button class="btn btn-spotlight-add" id="spotlightAddBtn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                    <span>Quick Add To Cart</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STORE CATALOG TOOLBAR -->
+        <section class="catalog-toolbar">
+          <div class="category-tabs" id="categoryTabs" role="tablist">
+            <button class="cat-pill active" data-category="all">All <span class="cat-count" id="countAll">18</span></button>
+            <button class="cat-pill" data-category="Electronics">Electronics <span class="cat-count" id="countElectronics">6</span></button>
+            <button class="cat-pill" data-category="Clothing">Clothing <span class="cat-count" id="countClothing">4</span></button>
+            <button class="cat-pill" data-category="Home & Kitchen">Home &amp; Kitchen <span class="cat-count" id="countHome">4</span></button>
+            <button class="cat-pill" data-category="Books">Books <span class="cat-count" id="countBooks">3</span></button>
+            <button class="cat-pill" data-category="Sports">Sports <span class="cat-count" id="countSports">2</span></button>
+          </div>
+
+          <div class="filter-controls">
+            <div class="select-wrapper">
+              <label for="sortSelect" class="sr-only">Sort products</label>
+              <select id="sortSelect" class="custom-select">
+                <option value="featured">Featured First</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
+                <option value="name">Alphabetical (A-Z)</option>
+              </select>
+            </div>
+
+            <label class="filter-chip" id="inStockFilterChip">
+              <input type="checkbox" id="inStockOnlyCheckbox" />
+              <span>In-Stock Only</span>
+            </label>
+
+            <span class="results-indicator" id="resultsCount">Showing 18 products</span>
+          </div>
+        </section>
+
+        <!-- PRODUCT GRID -->
+        <section class="product-grid" id="productGrid" aria-label="Products Catalog">
+          <!-- Populated dynamically via app.js -->
+        </section>
+
+        <!-- EMPTY STATE (SEARCH / FILTER) -->
+        <div class="empty-results-box" id="emptyResultsBox" hidden>
+          <div class="empty-icon">🔍</div>
+          <h3>No matching products found</h3>
+          <p>Try searching for a different keyword or resetting your category filter.</p>
+          <button class="btn btn-outline btn-sm" id="resetFiltersBtn">Reset All Filters</button>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           VIEW 2: ADMIN STUDIO (SHOWCASE MODE)
+           ========================================== -->
+      <section class="view-panel" id="viewAdmin" hidden>
+        
+        <!-- ADMIN HERO & TELEMETRY -->
+        <div class="admin-topbar">
+          <div>
+            <div class="admin-badge-row">
+              <span class="admin-tag">STORE MANAGEMENT SUITE</span>
+              <span class="admin-status-live">● Live Storefront Sync</span>
+            </div>
+            <h2 class="admin-heading">Operations &amp; Commerce Telemetry</h2>
+            <p class="admin-subtext">Real-time inventory management, simulated transactional queue, and sales performance telemetry.</p>
+          </div>
+          <div class="admin-actions">
+            <button class="btn btn-outline btn-sm" id="btnAdminReset">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+              <span>Reset Demo State</span>
+            </button>
+            <button class="btn btn-primary btn-sm" id="btnSimulateOrder">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>+ Inject Simulated Sale</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI METRICS GRID -->
+        <div class="admin-kpi-grid">
+          <div class="admin-kpi-card">
+            <div class="kpi-head">
+              <span class="kpi-label">Gross Revenue</span>
+              <span class="kpi-delta positive">+18.4%</span>
+            </div>
+            <div class="kpi-value" id="adminRevenue">$48,290.50</div>
+            <p class="kpi-note">Calculated across fulfilled &amp; active orders</p>
+          </div>
+
+          <div class="admin-kpi-card">
+            <div class="kpi-head">
+              <span class="kpi-label">Total Orders</span>
+              <span class="kpi-delta positive">+12 today</span>
+            </div>
+            <div class="kpi-value" id="adminTotalOrders">142</div>
+            <p class="kpi-note">Live reactive queue tracking</p>
+          </div>
+
+          <div class="admin-kpi-card">
+            <div class="kpi-head">
+              <span class="kpi-label">Average Order Value</span>
+              <span class="kpi-delta neutral">$134.80 avg</span>
+            </div>
+            <div class="kpi-value" id="adminAOV">$141.20</div>
+            <p class="kpi-note">Blended cart size per checkout</p>
+          </div>
+
+          <div class="admin-kpi-card">
+            <div class="kpi-head">
+              <span class="kpi-label">Active SKUs</span>
+              <span class="kpi-delta warning" id="adminLowStockBadge">2 Low Stock</span>
+            </div>
+            <div class="kpi-value" id="adminActiveSKUs">18</div>
+            <p class="kpi-note">Synchronized with storefront catalog</p>
+          </div>
+        </div>
+
+        <!-- CATEGORY DISTRIBUTION BAR -->
+        <div class="admin-chart-card">
+          <div class="admin-card-header">
+            <div>
+              <h3 class="admin-card-title">Category Revenue Distribution</h3>
+              <p class="admin-card-sub">Share of catalog volume across departmental categories</p>
+            </div>
+            <span class="distribution-total">100% Volume</span>
+          </div>
+          <div class="distribution-stacked-bar" id="categoryDistributionBar">
+            <div class="dist-segment electronics" style="width: 38%;" title="Electronics: 38%"></div>
+            <div class="dist-segment clothing" style="width: 22%;" title="Clothing: 22%"></div>
+            <div class="dist-segment home" style="width: 20%;" title="Home & Kitchen: 20%"></div>
+            <div class="dist-segment sports" style="width: 12%;" title="Sports: 12%"></div>
+            <div class="dist-segment books" style="width: 8%;" title="Books: 8%"></div>
+          </div>
+          <div class="distribution-legend">
+            <span class="leg-item"><span class="leg-dot electronics"></span> Electronics (38%)</span>
+            <span class="leg-item"><span class="leg-dot clothing"></span> Clothing (22%)</span>
+            <span class="leg-item"><span class="leg-dot home"></span> Home &amp; Kitchen (20%)</span>
+            <span class="leg-item"><span class="leg-dot sports"></span> Sports (12%)</span>
+            <span class="leg-item"><span class="leg-dot books"></span> Books (8%)</span>
+          </div>
+        </div>
+
+        <!-- ADMIN TABLES (SPLIT OR TABS) -->
+        <div class="admin-tables-container">
+          <!-- Recent Orders Queue -->
+          <div class="admin-table-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 class="admin-card-title">Live Fulfillment Queue</h3>
+                <p class="admin-card-sub">Real-time status changes persist in local state</p>
+              </div>
+              <span class="badge-pill" id="orderQueueCount">5 Active Orders</span>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table" id="adminOrdersTable">
+                <thead>
+                  <tr>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminOrdersBody">
+                  <!-- Injected via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Inventory Management -->
+          <div class="admin-table-card">
+            <div class="admin-card-header">
+              <div>
+                <h3 class="admin-card-title">Catalog &amp; Stock Manager</h3>
+                <p class="admin-card-sub">Adjust stock levels and observe instant storefront changes</p>
+              </div>
+              <span class="badge-pill">18 SKUs</span>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table" id="adminInventoryTable">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock Level</th>
+                    <th>Featured</th>
+                  </tr>
+                </thead>
+                <tbody id="adminInventoryBody">
+                  <!-- Injected via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">LuxeShop Showcase</span>
+          <p>Built with zero runtime dependencies. Modular JavaScript ES6+, responsive CSS Grid, and real-time state persistence.</p>
+        </div>
+        <div class="footer-links">
+          <a href="../../index.html" class="footer-link">← Return to Mingstar Portfolio</a>
+          <a href="https://github.com/Mingstar556" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub Profile ↗</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==========================================
+       CART SLIDE-OUT DRAWER
+       ========================================== -->
+  <div class="drawer-overlay" id="cartOverlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+      <!-- Header -->
+      <div class="cart-drawer-header">
+        <div class="cart-header-title-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <h2>Your Cart (<span id="cartDrawerCount">0</span>)</h2>
+        </div>
+        <button class="drawer-close-btn" id="cartCloseBtn" aria-label="Close cart">&times;</button>
+      </div>
+
+      <!-- Free Shipping Goal Tracker -->
+      <div class="shipping-goal-box" id="shippingGoalBox">
+        <div class="shipping-goal-text" id="shippingGoalText">Add $100.00 for FREE Express Shipping!</div>
+        <div class="shipping-goal-track">
+          <div class="shipping-goal-fill" id="shippingGoalFill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Cart Items List -->
+      <div class="cart-items-wrap" id="cartItemsWrap">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Empty Cart View -->
+      <div class="cart-empty-state" id="cartEmptyState" hidden>
+        <div class="cart-empty-emoji">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Explore our curated catalog and add your favorite items to see real-time checkout calculations.</p>
+        <button class="btn btn-primary btn-sm" id="cartEmptyCta">Browse Products</button>
+      </div>
+
+      <!-- Cart Drawer Footer -->
+      <div class="cart-drawer-footer" id="cartDrawerFooter">
+        <!-- Coupon Form -->
+        <div class="cart-coupon-row">
+          <input type="text" id="couponInput" placeholder="Promo Code (Try LUXE20)" uppercase />
+          <button class="btn btn-outline btn-sm" id="applyCouponBtn">Apply</button>
+        </div>
+        <div class="coupon-applied-pill" id="couponAppliedBadge" hidden>
+          <span>🏷️ Coupon <strong>LUXE20</strong> applied (20% OFF)</span>
+          <button class="coupon-remove-btn" id="removeCouponBtn" aria-label="Remove coupon">&times;</button>
+        </div>
+
+        <!-- Calculations -->
+        <div class="cart-summary-lines">
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span id="cartSubtotal">$0.00</span>
+          </div>
+          <div class="summary-line discount-line" id="discountSummaryRow" hidden>
+            <span>Discount (20%)</span>
+            <span id="cartDiscount">-$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Estimated Shipping</span>
+            <span id="cartShipping">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>Estimated Sales Tax (8%)</span>
+            <span id="cartTax">$0.00</span>
+          </div>
+          <div class="summary-line total-line">
+            <span>Estimated Total</span>
+            <span class="total-amount" id="cartTotal">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="cart-action-buttons">
+          <button class="btn btn-primary btn-block btn-checkout-trigger" id="btnCheckoutTrigger">
+            <span>Proceed to Checkout</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <button class="btn-clear-cart" id="btnClearCart">Clear Entire Cart</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ==========================================
+       PRODUCT QUICK VIEW MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="quickViewOverlay" aria-hidden="true">
+    <div class="modal-card quick-view-modal" role="dialog" aria-modal="true" aria-label="Product Details">
+      <button class="modal-close-btn" id="quickViewCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="quick-view-grid">
+        <div class="quick-view-media">
+          <img src="" alt="" id="qvImg" class="quick-view-image" />
+          <span class="qv-badge" id="qvBadge">Featured</span>
+        </div>
+        <div class="quick-view-details">
+          <span class="qv-category" id="qvCategory">Electronics</span>
+          <h2 class="qv-title" id="qvTitle">Product Title</h2>
+          <div class="qv-rating-row">
+            <div class="qv-stars" id="qvStars">★★★★★</div>
+            <span class="qv-rating-num" id="qvRatingNum">4.9 / 5.0</span>
+            <span class="qv-rating-reviews" id="qvReviewsCount">(128 verified reviews)</span>
+          </div>
+          <div class="qv-price-row">
+            <span class="qv-price" id="qvPrice">$0.00</span>
+            <span class="qv-orig-price" id="qvOrigPrice">$0.00</span>
+            <span class="qv-save-tag" id="qvSaveTag">Sale</span>
+          </div>
+          <p class="qv-desc" id="qvDesc">Description text</p>
+          <div class="qv-tags-row" id="qvTags"></div>
+          <div class="qv-stock-status" id="qvStock">
+            <span class="stock-dot"></span>
+            <span id="qvStockText">In Stock</span>
+          </div>
+
+          <div class="qv-actions-row">
+            <div class="qty-stepper">
+              <button class="qty-btn" id="qvQtyMinus" aria-label="Decrease quantity">−</button>
+              <input type="number" id="qvQtyInput" value="1" min="1" max="99" readonly />
+              <button class="qty-btn" id="qvQtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+            <button class="btn btn-primary btn-add-qv" id="qvAddToCartBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span>Add to Shopping Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       CHECKOUT SIMULATION MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="checkoutOverlay" aria-hidden="true">
+    <div class="modal-card checkout-modal" role="dialog" aria-modal="true" aria-label="Checkout">
+      <button class="modal-close-btn" id="checkoutCloseBtn" aria-label="Close checkout">&times;</button>
+
+      <!-- CHECKOUT HEADER -->
+      <div class="checkout-header">
+        <div class="checkout-brand-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <h2>Simulated Express Checkout</h2>
+        </div>
+        <p class="checkout-subtitle">Zero real payments processed. Demonstrates front-end transactional validation &amp; state management.</p>
+        
+        <!-- Quick Fill Preset Persona -->
+        <div class="preset-fill-bar">
+          <span class="preset-label">1-Click Auto Fill:</span>
+          <button type="button" class="preset-btn" id="btnFillAlice">👤 Alice Johnson (New York)</button>
+          <button type="button" class="preset-btn" id="btnFillBob">👤 Bob Smith (California)</button>
+        </div>
+      </div>
+
+      <!-- FORM STEPS -->
+      <form id="checkoutForm" novalidate>
+        <div class="checkout-sections-wrap">
+
+          <!-- Section 1: Customer & Shipping -->
+          <div class="checkout-step-block">
+            <h3 class="step-title"><span class="step-num">1</span> Shipping Details</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="custName">Full Name</label>
+                <input type="text" id="custName" placeholder="e.g. Alice Johnson" required />
+              </div>
+              <div class="form-group">
+                <label for="custEmail">Email Address</label>
+                <input type="email" id="custEmail" placeholder="e.g. alice@example.com" required />
+              </div>
+              <div class="form-group full-width">
+                <label for="custAddress">Street Address</label>
+                <input type="text" id="custAddress" placeholder="e.g. 742 Evergreen Terrace" required />
+              </div>
+              <div class="form-group">
+                <label for="custCity">City</label>
+                <input type="text" id="custCity" placeholder="e.g. Springfield" required />
+              </div>
+              <div class="form-group">
+                <label for="custZip">ZIP / Postal Code</label>
+                <input type="text" id="custZip" placeholder="e.g. 97477" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Payment Simulation -->
+          <div class="checkout-step-block">
+            <h3 class="step-title"><span class="step-num">2</span> Payment Method</h3>
+            <div class="payment-tabs">
+              <label class="payment-tab-option active">
+                <input type="radio" name="payMethod" value="card" checked />
+                <span>💳 Credit / Debit Card</span>
+              </label>
+              <label class="payment-tab-option">
+                <input type="radio" name="payMethod" value="applepay" />
+                <span>🍎 Apple Pay / G-Pay</span>
+              </label>
+              <label class="payment-tab-option">
+                <input type="radio" name="payMethod" value="cod" />
+                <span>📦 Cash On Delivery</span>
+              </label>
+            </div>
+
+            <div class="card-details-box" id="cardDetailsBox">
+              <div class="form-group full-width">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="4532 •••• •••• 8892" maxlength="19" required />
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="cardExpiry">Exp Date</label>
+                  <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required />
+                </div>
+                <div class="form-group">
+                  <label for="cardCvc">CVC</label>
+                  <input type="text" id="cardCvc" placeholder="•••" maxlength="4" required />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Summary & Submit -->
+          <div class="checkout-step-block checkout-review-block">
+            <h3 class="step-title"><span class="step-num">3</span> Order Review</h3>
+            <div class="checkout-order-summary-box">
+              <div class="summary-line">
+                <span>Items in Order</span>
+                <span id="coItemCount">0 items</span>
+              </div>
+              <div class="summary-line">
+                <span>Total Due</span>
+                <span class="highlight-total" id="coTotalDue">$0.00</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-place-order" id="btnPlaceOrder">
+              <span id="placeOrderText">Place Order &amp; Simulate Fulfillment</span>
+              <div class="spinner" id="orderSpinner" hidden></div>
+            </button>
+            <p class="safe-badge-note">🔒 256-bit SSL simulated security sandbox</p>
+          </div>
+
+        </div>
+      </form>
+
+      <!-- SUCCESS CONFIRMATION VIEW -->
+      <div class="checkout-success-view" id="checkoutSuccessView" hidden>
+        <div class="success-icon-wrap">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="success-badge">ORDER CONFIRMED</span>
+        <h2 class="success-title">Thank You For Your Order!</h2>
+        <p class="success-sub">Order <strong id="successOrderId">#LX-94812</strong> has been placed successfully and injected into the live Store Operations Queue.</p>
+
+        <div class="success-receipt-card">
+          <div class="receipt-row">
+            <span>Customer</span>
+            <strong id="receiptCustomer">Alice Johnson</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Shipping Address</span>
+            <span id="receiptAddress">742 Evergreen Terrace</span>
+          </div>
+          <div class="receipt-row">
+            <span>Total Paid</span>
+            <strong class="receipt-amount" id="receiptTotal">$0.00</strong>
+          </div>
+          <div class="receipt-row">
+            <span>Estimated Delivery</span>
+            <span id="receiptDelivery">3-5 Business Days</span>
+          </div>
+        </div>
+
+        <div class="success-actions">
+          <button class="btn btn-primary" id="btnSuccessViewAdmin">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+            <span>View In Admin Queue</span>
+          </button>
+          <button class="btn btn-outline" id="btnSuccessContinue">Continue Shopping</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script src="app.js"></script>
+</body>
+</html>
